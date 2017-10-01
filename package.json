@@ -1,0 +1,16 @@
+{
+  "name": "LeasingRechnerDesktop",
+  "version": "1.0.0",
+  "description": "leasingrechnen.at Desktop App",
+  "main": "index.js",
+  "scripts": {
+    "electron": "electron ."
+  },
+  "author": "xTools",
+  "devDependencies": {
+    "electron": "~1.7.8"
+  },
+  "dependencies": {
+    "electron-localshortcut": "^1.1.1"
+  }
+}
