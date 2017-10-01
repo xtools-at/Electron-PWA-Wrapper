@@ -3,14 +3,15 @@ const { BrowserWindow, session, shell } = electron;
 const c = require('./constants');
 
 class MainWindow extends BrowserWindow {
-  constructor(iconPath) {
+  constructor(mainUrl, iconPath, show) {
     // create options object
     const options = {
       width: c.mainWindow.width,
       height: c.mainWindow.height,
       title: c.settings.appName,
       icon: iconPath,
-      backgroundColor: c.settings.themeColor,
+      // backgroundColor: c.settings.themeColor,
+      show: (show === false ? false : true),
       webPreferences: {
         nodeIntegration: c.settings.nodeIntegrationEnabled,
       }, 
@@ -18,6 +19,7 @@ class MainWindow extends BrowserWindow {
 
     // initalize BrowserWindow
     super(options);
+    this.mainUrl = mainUrl;
 
     //  -- Event listeners: --
     // Open new windows in default Browser
@@ -28,9 +30,10 @@ class MainWindow extends BrowserWindow {
     // show fallback when no connection available
     this.webContents.on('did-fail-load', function(ev, errorCode, errorDesc, url) {
       // @TODO: show refresh site/widget when errorCode < 200
+      console.log(errorCode);
     });
 
-    // Load url
+    // Load provided url
     this.loadRelativeUrl('/');
   }
 
@@ -43,7 +46,7 @@ class MainWindow extends BrowserWindow {
   }
 
   loadRelativeUrl(url) {
-    this.loadCustomUrl(c.settings.appUrl + url);
+    this.loadCustomUrl(this.mainUrl + url);
   }
 }
 
