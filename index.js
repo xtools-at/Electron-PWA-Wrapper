@@ -13,16 +13,16 @@ app.on('ready', () => {
   // app.dock.hide();
   // mainWindow = new MainWindow(`file://${__dirname}/src/index.html`);
 
-  // load main page
-  mainWindow = new MainWindow('https://www.leasingrechnen.at');
-
   // set up icons
-  const iconName = process.platform === 'win32' ? 'windows-icon.png' : 'iconTemplate.png';
-  const iconPath = path.join(__dirname, `./src/assets/${iconName}`);
+  const appIcon = process.platform === 'darwin' ? 'tray.png' : 'app.png';
+  const trayIcon = 'tray.png';
+  const appIconPath = path.join(__dirname, `./src/assets/${appIcon}`);
+  const trayIconPath = path.join(__dirname, `./src/assets/${trayIcon}`);
 
+  // load main page
+  mainWindow = new MainWindow(appIconPath);
   // create menu
   setAppMenu();
-
   // create tray
-  tray = new AppTray(iconPath, mainWindow);
+  tray = new AppTray(trayIconPath, mainWindow);
 });

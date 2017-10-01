@@ -55,8 +55,8 @@ if (process.env.NODE_ENV !== 'production') {
 
 // set the application menu
 const setAppMenu = function () {
-  const mainMenu = Menu.buildFromTemplate(menuTemplate);
-  Menu.setApplicationMenu(mainMenu);
+  //const mainMenu = Menu.buildFromTemplate(menuTemplate);
+  Menu.setApplicationMenu(null);
 };
 
 module.exports = setAppMenu;

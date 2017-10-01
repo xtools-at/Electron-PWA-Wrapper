@@ -1,5 +1,6 @@
 const electron = require('electron');
 const { Tray, app, Menu } = electron;
+const c = require('./constants');
 
 class AppTray extends Tray {
   constructor(iconPath, mainWindow) {
@@ -9,37 +10,23 @@ class AppTray extends Tray {
 
     this.setToolTip('Leasing Rechner');
     
-    this.on('click', this.onRightClick.bind(this));
+    this.on('click', this.onClick.bind(this));
     this.on('right-click', this.onRightClick.bind(this));
   }
 
-  /*
+  
   onClick(event, bounds) {
-    // Click event bounds
-    const { x, y } = bounds;
-
-    // Window height and width
-    const { height, width } = this.mainWindow.getBounds();
-
-    if (this.mainWindow.isVisible()) {
-      this.mainWindow.hide();
-    } else {
-      const yPosition = process.platform === 'darwin' ? y : y - height;
-      this.mainWindow.setBounds({
-        x: x - width / 2,
-        y: yPosition,
-        height,
-        width
-      });
+    if (this.mainWindow.isMinimized()) {
+      this.mainWindow.restore();
+    } else if (!this.mainWindow.isVisible()) {
       this.mainWindow.show();
     }
   }
-  */
 
   onRightClick() {
     const menuConfig = Menu.buildFromTemplate([
       {
-        label: 'Quit',
+        label: c.strings.quit,
         click: () => app.quit()
       }
     ]);
