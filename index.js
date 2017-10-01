@@ -8,13 +8,10 @@ const c = require('./app/constants');
 const { app, Menu } = electron;
 
 let mainWindow;
-let spinnerWindow;
+//let spinnerWindow;
 let tray;
 
 app.on('ready', () => {
-  // app.dock.hide();
-  // mainWindow = new MainWindow(`file://${__dirname}/src/index.html`);
-
   // set up icons
   const appIcon = process.platform === 'darwin' ? 'tray.png' : 'app.png';
   const trayIcon = 'tray.png';
@@ -23,7 +20,7 @@ app.on('ready', () => {
 
   // load loader-page
   //spinnerWindow = new MainWindow(path.join(__dirname, `./src/index.html`), appIconPath);
-  
+
   // load main page
   mainWindow = new MainWindow(c.settings.appUrl, appIconPath, false);
   mainWindow.once('ready-to-show', () => {
