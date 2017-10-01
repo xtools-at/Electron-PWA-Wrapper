@@ -8,7 +8,7 @@ class AppTray extends Tray {
 
     this.mainWindow = mainWindow;
 
-    this.setToolTip('Leasing Rechner');
+    this.setToolTip(c.settings.appName);
     
     this.on('click', this.onClick.bind(this));
     this.on('right-click', this.onRightClick.bind(this));
@@ -24,14 +24,23 @@ class AppTray extends Tray {
   }
 
   onRightClick() {
-    const menuConfig = Menu.buildFromTemplate([
+    const menuConfig =[
       {
         label: c.strings.quit,
-        click: () => app.quit()
-      }
-    ]);
+        click: () => app.quit(),
+      },
+    ];
 
-    this.popUpContextMenu(menuConfig);
+    if (this.mainWindow.isMinimized()) {
+      menuConfig.unshift({
+        label: c.strings.open,
+        click: () => this.onClick(),
+      });
+    }
+
+    this.popUpContextMenu(
+      Menu.buildFromTemplate(menuConfig)
+    );
   }
 }
 

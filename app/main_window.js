@@ -10,6 +10,7 @@ class MainWindow extends BrowserWindow {
       height: c.mainWindow.height,
       title: c.settings.appName,
       icon: iconPath,
+      backgroundColor: c.settings.themeColor,
       webPreferences: {
         nodeIntegration: c.settings.nodeIntegrationEnabled,
       }, 
@@ -30,10 +31,19 @@ class MainWindow extends BrowserWindow {
     });
 
     // Load url
-    this.loadURL(c.settings.appUrl, {
+    this.loadRelativeUrl('/');
+  }
+
+  // add custom user agent postifx (e.g. for google analytics)
+  loadCustomUrl(url) {
+    this.loadURL(url, {
       userAgent: (session.defaultSession.getUserAgent()
         + ' ' + c.settings.userAgentPostfix),
     });
+  }
+
+  loadRelativeUrl(url) {
+    this.loadCustomUrl(c.settings.appUrl + url);
   }
 }
 

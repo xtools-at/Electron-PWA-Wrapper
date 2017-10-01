@@ -22,7 +22,7 @@ app.on('ready', () => {
   // load main page
   mainWindow = new MainWindow(appIconPath);
   // create menu
-  setAppMenu();
+  setAppMenu(mainWindow);
   // create tray
   tray = new AppTray(trayIconPath, mainWindow);
 });
