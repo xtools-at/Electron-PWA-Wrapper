@@ -1,8 +1,12 @@
 {
   "name": "LeasingRechnerDesktop",
   "version": "1.0.0",
-  "description": "Electron Desktop App for PWAs / leasingrechnen.at",
+  "description": "Electron Desktop App Wrapper for PWAs / leasingrechnen.at",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xtools-at/Electron-PWA-Wrapper.git"
+  },
   "scripts": {
     "electron": "electron ."
   },
@@ -11,5 +15,10 @@
   "devDependencies": {
     "electron": "~1.7.8"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "files": [
+    "*.js",
+    "src",
+    "node_modules"
+  ]
 }

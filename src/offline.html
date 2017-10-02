@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Loading...</title>
+        <title>Offline</title>
         <style>
             html, body {
                 height: 100%;
@@ -25,8 +25,20 @@
         </style>
     </head>
     <body>
-        <div id="spinner" class="flex-container">
-            <img class="flex-center" src="./assets/spinner.gif" title="Loading..." />
+        <div id="offline" class="flex-container">
+            <div id="refresh" class="flex-center">
+                You are offline.
+            </div>
         </div>
+
+        <script>
+            const electron = require('electron');
+            const {ipcRenderer} = electron;
+
+            var refresh = document.querySelector('#refresh');
+            refresh.addEventListener('click', function () {
+                ipcRenderer.send('app:refresh');
+            });
+        </script>
     </body>
 </html>

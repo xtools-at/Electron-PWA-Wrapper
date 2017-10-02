@@ -27,14 +27,9 @@ class MainWindow extends BrowserWindow {
       e.preventDefault();
       shell.openExternal(url);
     });
-    // show fallback when no connection available
-    this.webContents.on('did-fail-load', function(ev, errorCode, errorDesc, url) {
-      // @TODO: show refresh site/widget when errorCode < 200
-      console.log(errorCode);
-    });
 
     // Load provided url
-    this.loadRelativeUrl('/');
+    this.loadRelativeUrl('');
   }
 
   // add custom user agent postifx (e.g. for google analytics)
