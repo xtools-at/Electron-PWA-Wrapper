@@ -1,3 +1,4 @@
+const path = require('path');
 const electron = require('electron');
 const { BrowserWindow, session, shell } = electron;
 const c = require('./constants');
@@ -14,6 +15,7 @@ class MainWindow extends BrowserWindow {
       show: (show === false ? false : true),
       webPreferences: {
         nodeIntegration: c.settings.nodeIntegrationEnabled,
+        preload: path.resolve(__dirname, '../src', 'ipcPreloader.js'),
       }, 
     };
 

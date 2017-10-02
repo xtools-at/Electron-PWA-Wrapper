@@ -32,12 +32,9 @@
         </div>
 
         <script>
-            const electron = require('electron');
-            const {ipcRenderer} = electron;
-
             var refresh = document.querySelector('#refresh');
             refresh.addEventListener('click', function () {
-                ipcRenderer.send('app:refresh');
+                window.ipcRenderer.send('app:refresh');
             });
         </script>
     </body>

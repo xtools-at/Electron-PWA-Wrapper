@@ -49,8 +49,7 @@ function loadAppWindows(appIconPath) {
   // show offline-page if no connectivity
   mainWindow.webContents.on('did-fail-load', function(ev, errorCode, errorDesc, url) {
     // @TODO: show refresh site/widget when errorCode < 200
-    console.log(errorCode);
-    offlineWindow = new MainWindow(path.join('file://', __dirname, 'src', 'offline.html'), appIconPath);
+    offlineWindow = new MainWindow(path.resolve(__dirname, 'src', 'offline.html'), appIconPath);
     mainWindow.hide();
   });
 }
