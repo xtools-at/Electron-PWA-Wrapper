@@ -2,32 +2,14 @@
 <html>
     <head>
         <title>Offline</title>
-        <style>
-            html, body {
-                height: 100%;
-            }
-            body {
-                margin: 0;
-                background-color:#FFF;
-            }
-            .flex-container {
-                width: 100%;
-                height:100%;
-                height:100vh;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-            }
-            .flex-container .flex-center {
-                flex: none;
-            }
-        </style>
+        <link href="res/base.css" rel="stylesheet" />
     </head>
     <body>
         <div id="offline" class="flex-container">
             <div id="refresh" class="flex-center">
-                You are offline.
+                <img src="res/images/offline.svg" title="Offline" />
+                <p class="large">Keine Internetverbindung.</p>
+                <p>Hier tippen um es erneut zu versuchen!</p>
             </div>
         </div>
 

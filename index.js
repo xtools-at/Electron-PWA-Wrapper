@@ -10,7 +10,7 @@ const { app, Menu, ipcMain } = electron;
 
 let mainWindow;
 let spinnerWindow;
-let offineWindow;
+let offlineWindow;
 let tray;
 let appIconPath;
 
@@ -46,7 +46,7 @@ function loadAppWindows(showLoader) {
       mainWindow.show();
     });
   }
-
+  offlineWindow = new MainWindow(path.resolve(__dirname, 'src', 'offline.html'), appIconPath);
   // show offline-page if no connectivity
   mainWindow.webContents.on('did-fail-load', function(ev, errorCode, errorDesc, url) {
     // @TODO: errorCode < 200 only ?
@@ -58,7 +58,7 @@ function loadAppWindows(showLoader) {
 // Listen for events fired in the UI
 ipcMain.on('app:refresh', (event) => {
   // hide offline window if applicable
-  if (offineWindow && offineWindow.isVisible()) {
+  if (offlineWindow && offlineWindow.isVisible()) {
     offlineWindow.hide();
   }
   offlineWindow = null;
