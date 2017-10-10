@@ -31,7 +31,7 @@ class MainWindow extends BrowserWindow {
     });
 
     // Load provided url
-    this.loadRelativeUrl('');
+    this.loadHome();
   }
 
   // add custom user agent postifx (e.g. for google analytics)
@@ -44,6 +44,10 @@ class MainWindow extends BrowserWindow {
 
   loadRelativeUrl(url) {
     this.loadCustomUrl(this.mainUrl + url);
+  }
+
+  loadHome() {
+    this.loadRelativeUrl('');
   }
 }
 
