@@ -11,15 +11,38 @@ const Constants = {
     height: 780,
   },
   strings: {
-    quit: 'Beenden',
     open: 'Öffnen',
   },
   menu: {
-    file: 'Datei',
-    calculate: 'Berechnen',
-    sub: {
-      calc_car: 'Kfz Leasing berechnen',
-      calc_movables: 'Mobilien Leasing berechnen',
+    app: {
+      about: 'Über',
+      quit: 'Beenden',
+      hide: 'verbergen',
+      hideothers: 'Andere verbergen',
+      unhide: 'Alle anzeigen',
+    },
+    file: {
+      label: 'Datei',
+    },
+    edit: {
+      label: 'Bearbeiten',
+      undo: 'Rückgänging',
+      redo: 'Wiederholen',
+      cut: 'Ausschneiden',
+      copy: 'Kopieren',
+      paste: 'Einfügen',
+      selectall: 'Alles auswählen'
+    },
+    window: {
+      label: 'Fenster',
+      minimize: 'Minimieren',
+      close: 'Schließen',
+      front: 'Alle in den Vordergrund',
+    },
+    calculate: {
+      label: 'Berechnen',
+      car: 'Kfz Leasing berechnen',
+      movables: 'Mobilien Leasing berechnen',
     },
   },
 };

@@ -16,31 +16,43 @@ class AppTray extends Tray {
 
   
   onClick(event, bounds) {
-    if (this.mainWindow.isMinimized()) {
-      this.mainWindow.restore();
-    } else if (!this.mainWindow.isVisible()) {
-      this.mainWindow.show();
+    if (process.platform === 'darwin') {
+      // behave like other tray icons on OSX and open menu on left click
+      this.onRightClick();
+    } else {
+      // go default
+      this.restoreWindow();
     }
   }
 
   onRightClick() {
     const menuConfig =[
       {
-        label: c.strings.quit,
+        label: c.menu.app.quit,
         click: () => app.quit(),
       },
     ];
 
-    if (this.mainWindow.isMinimized()) {
+    if (this.mainWindow.isMinimized() || !this.mainWindow.isFocused()) {
       menuConfig.unshift({
         label: c.strings.open,
-        click: () => this.onClick(),
+        click: () => this.restoreWindow(),
       });
     }
 
     this.popUpContextMenu(
       Menu.buildFromTemplate(menuConfig)
     );
+  }
+
+  restoreWindow() {
+    if (this.mainWindow.isMinimized()) {
+      this.mainWindow.restore();
+    } else if (!this.mainWindow.isVisible()) {
+      this.mainWindow.show();
+    }
+    // bring it to the top
+    this.mainWindow.focus();
   }
 }
 

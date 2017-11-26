@@ -46,7 +46,10 @@ function loadAppWindows(showLoader) {
       mainWindow.show();
     });
   }
-  offlineWindow = new MainWindow(path.resolve(__dirname, 'src', 'offline.html'), appIconPath);
+  /* DEBUG: force show offline window
+  //offlineWindow = new MainWindow(path.resolve(__dirname, 'src', 'offline.html'), appIconPath);
+  */
+
   // show offline-page if no connectivity
   mainWindow.webContents.on('did-fail-load', function(ev, errorCode, errorDesc, url) {
     // @TODO: errorCode < 200 only ?
