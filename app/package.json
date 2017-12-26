@@ -1,0 +1,16 @@
+{
+  "name": "LeasingRechner",
+  "version": "1.0.0",
+  "description": "Electron Desktop App Wrapper for PWAs / leasingrechnen.at",
+  "homepage": "https://www.leasingrechnen.at",
+  "main": "index.js",
+  "author": {
+    "name": "xTools",
+    "email": "apps@xtools.at"
+  },
+  "license": "GPLv3",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xtools-at/Electron-PWA-Wrapper.git"
+  }
+}

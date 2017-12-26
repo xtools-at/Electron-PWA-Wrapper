@@ -1,25 +1,77 @@
 {
-  "name": "LeasingRechnerDesktop",
+  "name": "LeasingRechner",
   "version": "1.0.0",
   "description": "Electron Desktop App Wrapper for PWAs / leasingrechnen.at",
+  "homepage": "https://www.leasingrechnen.at",
   "main": "index.js",
+  "author": {
+    "name": "xTools",
+    "email": "apps@xtools.at"
+  },
+  "license": "GPLv3",
   "repository": {
     "type": "git",
     "url": "https://github.com/xtools-at/Electron-PWA-Wrapper.git"
   },
   "scripts": {
     "electron": "electron .",
-    "start": "./node_modules/.bin/electron ."
+    "start": "./node_modules/.bin/electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
+    "postinstall": "electron-builder install-app-deps"
   },
-  "author": "xTools",
-  "license": "GPLv3",
   "devDependencies": {
-    "electron": "~1.7.10"
+    "electron": "~1.7.10",
+    "electron-builder": "^19.49.2"
   },
   "dependencies": {},
   "files": [
     "*.js",
     "src",
     "node_modules"
-  ]
+  ],
+  "build": {
+    "appId": "at.xtools.leasingrechner.desktop",
+    "productName": "Leasing Rechner",
+    "copyright": "Copyright © 2018 leasingrechnen.at",
+    "app-category-type": "",
+    "mac": {
+      "category": "public.app-category.finance",
+      "target": [
+        {"target": "dmg"},
+        {"target": "mas"}
+      ],
+      "icon": "build/icon.icns",
+      "entitlements": "",
+
+    },
+    "dmg": {
+
+    },
+    "mas":{
+      "entitlements": "",
+    },
+    "win": {
+      "target": [
+        {"target": "appx"},
+        {"target": "portable"}
+      ],
+      "icon": "build/icon.ico",
+      "iconUrl": "https://www.leasingrechnen.at/icons/web_hi_res_512.png",
+      "legalTrademarks": "Copyright © 2018 leasingrechnen.at",
+      "publisherName": "xTools",
+    },
+    "appx": {
+      "applicationId": "",
+      "backgroundColor": "#FFFFFF",
+      "displayName": "Leasing Rechner",
+      "identityName": "",
+      "publisher": "",
+      "publisherDisplayName": "xTools",
+      "languages": ["de", "de-at", "de-ch", "de-de", "de-lu", "de-li"],
+    },
+    "portable": {
+
+    }
+  }
 }

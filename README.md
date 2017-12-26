@@ -16,5 +16,16 @@ Drafted for the future Desktop-version of my [Leasing Calculator](https://www.le
 - run `npm run electron` to start the app
 - check out */app/constants.js* for some options (e.g. setting your own URL)
 
+## Building with [electron-builder](https://github.com/electron-userland/electron-builder)
+### Preperations
+- @TODO package.json
+
+### Build for OSX App Store
+- @TODO
+
+### Build for Windows App Store
+- @TODO
+
+
 ## License
 [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) - if you use it, we wanna see it!
