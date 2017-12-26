@@ -3,11 +3,13 @@ const Constants = {
     appName: 'Leasing Rechner',
     appUrl: 'https://www.leasingrechnen.at', // without trailing slash!
     nodeIntegrationEnabled: false, // disable if you need jQuery,Angular,...
-    userAgentPostfix: 'DesktopApp',
+    userAgentPostfixDefault: 'DesktopApp',
+    userAgentPostfixWindows: 'WindowsApp',
+    userAgentPostfixOSX: 'MacOSXApp',
     themeColor: '#F44336',
   },
   mainWindow: {
-    width:500,
+    width: 460,
     height: 780,
   },
   strings: {

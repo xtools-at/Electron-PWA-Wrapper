@@ -36,9 +36,12 @@ class MainWindow extends BrowserWindow {
 
   // add custom user agent postifx (e.g. for google analytics)
   loadCustomUrl(url) {
+    var userAgentPostfix = process.platform === 'darwin'
+      ? c.settings.userAgentPostfixOSX
+      : c.settings.userAgentPostfixWindows;
     this.loadURL(url, {
       userAgent: (session.defaultSession.getUserAgent()
-        + ' ' + c.settings.userAgentPostfix),
+        + ' ' + userAgentPostfix),
     });
   }
 

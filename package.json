@@ -8,12 +8,13 @@
     "url": "https://github.com/xtools-at/Electron-PWA-Wrapper.git"
   },
   "scripts": {
-    "electron": "electron ."
+    "electron": "electron .",
+    "start": "./node_modules/.bin/electron ."
   },
   "author": "xTools",
   "license": "GPLv3",
   "devDependencies": {
-    "electron": "~1.7.8"
+    "electron": "~1.7.10"
   },
   "dependencies": {},
   "files": [
