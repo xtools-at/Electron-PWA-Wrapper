@@ -40,7 +40,7 @@ function loadAppWindows(showLoader) {
   if (showLoader) {
     // show loader window only on first start,
     // the PWA should be cached afterwards.
-    spinnerWindow = new MainWindow(path.resolve(__dirname, 'src', 'loader.html'), appIconPath);
+    spinnerWindow = new MainWindow(`file://${__dirname}/src/loader.html`, appIconPath);
     // hide loader when app is ready
     mainWindow.once('ready-to-show', () => {
       spinnerWindow.hide();
@@ -48,14 +48,13 @@ function loadAppWindows(showLoader) {
       mainWindow.show();
     });
   }
-  /* DEBUG: force show offline window
-  //offlineWindow = new MainWindow(path.resolve(__dirname, 'src', 'offline.html'), appIconPath);
-  */
+  /* DEBUG: force show offline window */
+  // offlineWindow = new MainWindow(`file://${__dirname}/src/offline.html`, appIconPath);
 
   // show offline-page if no connectivity
   mainWindow.webContents.on('did-fail-load', function(ev, errorCode, errorDesc, url) {
     // @TODO: errorCode < 200 only ?
-    offlineWindow = new MainWindow(path.resolve(__dirname, 'src', 'offline.html'), appIconPath);
+    offlineWindow = new MainWindow(`file://${__dirname}/src/offline.html`, appIconPath);
     mainWindow.hide();
   });
 }
