@@ -34,32 +34,32 @@
     "appId": "at.xtools.leasingrechner.desktop",
     "productName": "Leasing Rechner",
     "copyright": "Copyright © 2018 leasingrechnen.at",
-    "app-category-type": "",
     "mac": {
       "category": "public.app-category.finance",
       "target": [
-        {"target": "dmg"},
-        {"target": "mas"}
+        {
+          "target": "dmg"
+        },
+        {
+          "target": "mas"
+        }
       ],
-      "icon": "build/icon.icns",
-      "entitlements": "",
-
+      "icon": "build/icon.icns"
     },
-    "dmg": {
-
-    },
-    "mas":{
-      "entitlements": "",
-    },
+    "dmg": {},
+    "mas": {},
     "win": {
       "target": [
-        {"target": "appx"},
-        {"target": "portable"}
+        {
+          "target": "appx"
+        },
+        {
+          "target": "portable"
+        }
       ],
       "icon": "build/icon.ico",
-      "iconUrl": "https://www.leasingrechnen.at/icons/web_hi_res_512.png",
       "legalTrademarks": "Copyright © 2018 leasingrechnen.at",
-      "publisherName": "xTools",
+      "publisherName": "xTools"
     },
     "appx": {
       "applicationId": "",
@@ -68,10 +68,15 @@
       "identityName": "",
       "publisher": "",
       "publisherDisplayName": "xTools",
-      "languages": ["de", "de-at", "de-ch", "de-de", "de-lu", "de-li"],
+      "languages": [
+        "de",
+        "de-at",
+        "de-ch",
+        "de-de",
+        "de-lu",
+        "de-li"
+      ]
     },
-    "portable": {
-
-    }
+    "portable": {}
   }
 }

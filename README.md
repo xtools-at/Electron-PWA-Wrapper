@@ -19,6 +19,7 @@ Drafted for the future Desktop-version of my [Leasing Calculator](https://www.le
 ## Building with [electron-builder](https://github.com/electron-userland/electron-builder)
 ### Preperations
 - @TODO package.json
+- `./node_modules/.bin/electron-builder build`
 
 ### Build for OSX App Store
 - @TODO
