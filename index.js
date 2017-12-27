@@ -16,10 +16,10 @@ let appIconPath;
 
 app.on('ready', () => {
   // set up icons
-  const appIcon = process.platform === 'darwin'
+  const appIcon = 'app.png';
+  const trayIcon = process.platform === 'darwin'
     ? 'tray.png'
     : 'app.png';
-  const trayIcon = 'tray.png';
   const trayIconPath = path.join(__dirname, 'src', 'assets', trayIcon);
   appIconPath = path.join(__dirname, 'src', 'assets', appIcon);
 
