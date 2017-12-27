@@ -62,11 +62,11 @@
       "publisherName": "xTools"
     },
     "appx": {
-      "applicationId": "",
-      "backgroundColor": "#FFFFFF",
+      "applicationId": "xTools.LeasingRechner",
+      "backgroundColor": "#F44336",
       "displayName": "Leasing Rechner",
-      "identityName": "",
-      "publisher": "",
+      "identityName": "xTools.LeasingRechner",
+      "publisher": "CN=84B32E2F-0B83-4D35-8A43-109EF795E8E1",
       "publisherDisplayName": "xTools",
       "languages": [
         "de",
