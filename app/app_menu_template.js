@@ -62,10 +62,10 @@ const menuTemplate = function(mainWindow) {
         },
       ]
     },
-    /*
     {
-      label: 'View',
+      label: c.menu.view.label,
       submenu: [
+        /*
         {
           label: 'Reload',
           accelerator: 'CmdOrCtrl+R',
@@ -74,8 +74,9 @@ const menuTemplate = function(mainWindow) {
               focusedWindow.reload();
           }
         },
+        */
         {
-          label: 'Toggle Full Screen',
+          label: c.menu.view.fullscreen,
           accelerator: (function() {
             if (process.platform === 'darwin')
               return 'Ctrl+Command+F';
@@ -86,7 +87,7 @@ const menuTemplate = function(mainWindow) {
             if (focusedWindow)
               focusedWindow.setFullScreen(!focusedWindow.isFullScreen());
           }
-        },
+        }/*,
         {
           label: 'Toggle Developer Tools',
           accelerator: (function() {
@@ -99,10 +100,10 @@ const menuTemplate = function(mainWindow) {
             if (focusedWindow)
               focusedWindow.toggleDevTools();
           }
-        },
+        }
+        */
       ]
     },
-    */
     {
       label: c.menu.window.label,
       role: 'window',
@@ -119,18 +120,24 @@ const menuTemplate = function(mainWindow) {
         },
       ]
     },
-    /*
     {
-      label: 'Help',
+      label: c.menu.help.label,
       role: 'help',
       submenu: [
         {
-          label: 'Learn More',
-          click: function() { shell.openExternal('http://electron.atom.io') }
+          label: c.menu.app.about + ' ' + c.settings.appName,
+          click: function() {
+            mainWindow.loadRelativeUrl('/ueber-uns');
+          }
+        },
+        {
+          label: c.menu.help.contact,
+          click: function() {
+            mainWindow.loadRelativeUrl('/kontakt');
+          }
         },
       ]
-    },
-    */
+    }
   ];
 
   if (process.platform === 'darwin') {
@@ -207,6 +214,8 @@ const menuTemplate = function(mainWindow) {
   }
 
   // additional menu items for development
+  // won't get hidden in Builds, so we're commenting them out.
+  /*
   if (process.env.NODE_ENV !== 'production') {
     template.push({
       label: 'Development',
@@ -233,6 +242,7 @@ const menuTemplate = function(mainWindow) {
       ]
     });
   }
+  */
 
   return template;
 }

@@ -35,11 +35,19 @@ const Constants = {
       paste: 'Einfügen',
       selectall: 'Alles auswählen'
     },
+    view: {
+      label: 'Ansicht',
+      fullscreen: 'Vollbild de-/aktivieren'
+    },
     window: {
       label: 'Fenster',
       minimize: 'Minimieren',
       close: 'Schließen',
       front: 'Alle in den Vordergrund',
+    },
+    help: {
+      label: 'Hilfe',
+      contact: 'Kontakt'
     },
     calculate: {
       label: 'Berechnen',
