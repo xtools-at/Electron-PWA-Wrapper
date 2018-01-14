@@ -17,15 +17,20 @@ Drafted for the future Desktop-version of my [Leasing Calculator](https://www.le
 - check out */app/constants.js* for some options (e.g. setting your own URL)
 
 ## Building with [electron-builder](https://github.com/electron-userland/electron-builder)
+Electron-PWA-Wrapper comes with *electron-builder* preconfigured for MacOSX (dmg, mas) and Windows (Appx + Portable).
+
 ### Preperations
-- @TODO package.json
-- `./node_modules/.bin/electron-builder build`
+- You'll need to 
+-- look up your `package.json` and put in your App's values in the *build* section
+-- and put all the required graphics into the `build` directory.
+-- See the [electron-builder Docs](https://www.electron.build) for further details!
+- run `electron-builder build` or `./node_modules/.bin/electron-builder build` (depending on your OS) to start the build.
 
 ### Build for OSX App Store
-- @TODO
+- Detailed Build-instructions coming soon!
 
 ### Build for Windows App Store
-- @TODO
+- Detailed Build-instructions coming soon!
 
 
 ## License
