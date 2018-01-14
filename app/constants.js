@@ -49,10 +49,11 @@ const Constants = {
       label: 'Hilfe',
       contact: 'Kontakt'
     },
-    calculate: {
+    leasing: {
       label: 'Berechnen',
       car: 'Kfz Leasing berechnen',
       movables: 'Mobilien Leasing berechnen',
+      inquiry: 'Leasing Angebot anfordern',
     },
   },
 };

@@ -6,20 +6,27 @@ const c = require('./constants');
 const menuTemplate = function(mainWindow) {
   const template = [
     {
-      label: c.menu.calculate.label,
+      label: c.menu.leasing.label,
       submenu: [
         {
-          label: c.menu.calculate.car,
+          label: c.menu.leasing.car,
           accelerator: 'CmdOrCtrl+B',
           click() {
             mainWindow.loadRelativeUrl('/');
           }
         },
         {
-          label: c.menu.calculate.movables,
+          label: c.menu.leasing.movables,
           accelerator: 'CmdOrCtrl+N',
           click() {
             mainWindow.loadRelativeUrl('/mobilien-rechner');
+          }
+        },
+        {
+          label: c.menu.leasing.inquiry,
+          accelerator: 'CmdOrCtrl+L',
+          click() {
+            mainWindow.loadRelativeUrl('/angebot');
           }
         },
       ],
