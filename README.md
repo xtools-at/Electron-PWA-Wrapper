@@ -6,9 +6,12 @@ Drafted for the future Desktop-version of my [Leasing Calculator](https://www.le
 
 ### Early development stage, please don't use for your projects yet.
 
-## Upcoming Features
+## Features
 - loading animation window for first boot
 - handle connectivity issues natively in the wrapper
+
+## Upcoming Features
+- build witch electron-builder
 
 ## Wanna give it a try?
 - clone repository, *cd* into the directory
