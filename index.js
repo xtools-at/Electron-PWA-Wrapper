@@ -32,7 +32,7 @@ app.on('ready', () => {
   // create tray
   tray = new AppTray(trayIconPath, mainWindow);
   // create TouchBar on macOS
-  if (process.platform === 'darwin') {
+  if (c.settings.useTouchBar && process.platform === 'darwin') {
     const setTouchBar = require('./app/touch_bar');
     setTouchBar(mainWindow);
   }

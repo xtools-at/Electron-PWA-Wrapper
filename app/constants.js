@@ -1,15 +1,15 @@
 const Constants = {
   settings: {
-    appName: 'Leasing Rechner',
+    appName: 'Leasingrechner',
     appUrl: 'https://www.leasingrechnen.at', // without trailing slash!
-    nodeIntegrationEnabled: false, // disable if you need jQuery,Angular,...
-    userAgentPostfixDefault: 'DesktopApp',
-    userAgentPostfixWindows: 'WindowsApp',
+    nodeIntegrationEnabled: false, // keep disabled unless you run into ipcRenderer-specific troubles
+    userAgentPostfixWindows: 'WindowsApp', // custom user agent postfixes to distinguish traffic in Analytics
     userAgentPostfixOSX: 'MacOSXApp',
     themeColor: '#F44336',
-    titleBarStyle: 'hiddenInset',
-    windowBackgroundColor: '#FFFFFF',
-    frame: false,
+    titleBarStyle: 'hiddenInset', // use 'default' to reset
+    windowBackgroundColor: '#FFFFFF', // set to false to disable
+    frame: false, // set to false for Frameless Windows
+    useTouchBar: true,
   },
   mainWindow: {
     width: 460,
