@@ -16,10 +16,12 @@ let appIconPath;
 
 app.on('ready', () => {
   // set up icons
-  const appIcon = 'app.png';
+  const appIcon = process.platform === 'darwin'
+    ? 'app-mac.png'
+    : 'app-win.ico';
   const trayIcon = process.platform === 'darwin'
-    ? 'tray.png'
-    : 'app.png';
+    ? 'tray-mac.png'
+    : 'tray-win.ico';
   const trayIconPath = path.join(__dirname, 'src', 'assets', trayIcon);
   appIconPath = path.join(__dirname, 'src', 'assets', appIcon);
 
@@ -35,6 +37,7 @@ app.on('ready', () => {
 function loadAppWindows(showLoader) {
   // setup/load main page
   mainWindow = new MainWindow(c.settings.appUrl, appIconPath, !showLoader);
+  // quit app when mainWindow is closed
   mainWindow.on('closed', () => app.quit());
 
   if (showLoader) {
@@ -53,7 +56,6 @@ function loadAppWindows(showLoader) {
 
   // show offline-page if no connectivity
   mainWindow.webContents.on('did-fail-load', function(ev, errorCode, errorDesc, url) {
-    // @TODO: errorCode < 200 only ?
     offlineWindow = new MainWindow(`file://${__dirname}/src/offline.html`, appIconPath);
     mainWindow.hide();
   });
@@ -66,11 +68,13 @@ ipcMain.on('app:refresh', (event) => {
     offlineWindow.hide();
   }
   offlineWindow = null;
-  // mainWindow is hidden, refresh and show it directly
+
   if (mainWindow) {
+    // mainWindow is hidden, refresh and show it directly
     mainWindow.loadHome();
     mainWindow.show();
   } else {
+    // instantiate mainWindow additionally
     loadAppWindows(false);
   }
   
