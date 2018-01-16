@@ -41,7 +41,12 @@ app.on('ready', () => {
 // Handle BrowserWindow setup
 function loadAppWindows(showLoader) {
   // setup/load main page
-  mainWindow = new MainWindow(c.settings.appUrl, appIconPath, !showLoader);
+  var appPath = c.settings.usePhotonKitShell && process.platform === 'darwin'
+    ? `file://${__dirname}/src/macOS.html`
+    : c.settings.appUrl;
+  //mainWindow = new MainWindow(, appIconPath, !showLoader);
+  mainWindow = new MainWindow(appPath, appIconPath, !showLoader);
+
   // quit app when mainWindow is closed
   mainWindow.on('closed', () => app.quit());
 
@@ -84,3 +89,40 @@ ipcMain.on('app:refresh', (event) => {
   }
   
 });
+
+if (c.settings.usePhotonKitShell && process.platform === 'darwin') {
+  // macOS + PhotonKit listeners
+  //const ipc = require('./app/ipc_mac');
+  const { Notification } = electron;
+  const resize = function(width, height) {
+    let bounds = mainWindow.getBounds();
+    const currSize = mainWindow.getSize();
+
+    const diffWidth = (currSize[0] - width);
+    let newX = bounds.x - (diffWidth / 2);
+    if (newX < 0) {
+      newX = 0;
+    }
+    bounds.x = newX;
+
+    mainWindow.setSize(width, height, true);
+    mainWindow.setBounds(bounds, true);
+  };
+
+  if (Notification.isSupported()) {
+    ipcMain.on('webview:notification', (event) => {
+      new Notification({
+        title: 'Anfrage erfolgreich versandt',
+        subtitle: 'Subtitle',
+        body: 'Sie erhalten Ihr Angebot innerhalb von höchstens 2 Werktagen, aber wir setzen alles daran, schneller zu sein!',
+      }).show();
+    });
+  }
+
+  ipcMain.on('titlebar:small_view', (event) => {
+    resize(c.settings.width, c.settings.height);
+  });
+  ipcMain.on('titlebar:large_view', (event) => {
+    resize(c.settings.largeWidth, c.settings.largeHeight);
+  });
+}
