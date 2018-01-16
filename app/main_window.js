@@ -11,8 +11,9 @@ class MainWindow extends BrowserWindow {
       height: c.mainWindow.height,
       title: c.settings.appName,
       icon: iconPath,
-      // backgroundColor: c.settings.themeColor,
+      backgroundColor: c.settings.windowBackgroundColor,
       titleBarStyle: c.settings.titleBarStyle,
+      frame: c.settings.frame,
       show: (show === false ? false : true),
       webPreferences: {
         nodeIntegration: c.settings.nodeIntegrationEnabled,

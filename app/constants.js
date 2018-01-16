@@ -8,6 +8,8 @@ const Constants = {
     userAgentPostfixOSX: 'MacOSXApp',
     themeColor: '#F44336',
     titleBarStyle: 'hiddenInset',
+    windowBackgroundColor: '#FFFFFF',
+    frame: false,
   },
   mainWindow: {
     width: 460,
