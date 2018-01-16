@@ -12,6 +12,7 @@ class MainWindow extends BrowserWindow {
       title: c.settings.appName,
       icon: iconPath,
       // backgroundColor: c.settings.themeColor,
+      titleBarStyle: c.settings.titleBarStyle,
       show: (show === false ? false : true),
       webPreferences: {
         nodeIntegration: c.settings.nodeIntegrationEnabled,

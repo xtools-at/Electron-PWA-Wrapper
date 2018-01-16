@@ -7,6 +7,7 @@ const Constants = {
     userAgentPostfixWindows: 'WindowsApp',
     userAgentPostfixOSX: 'MacOSXApp',
     themeColor: '#F44336',
+    titleBarStyle: 'hiddenInset',
   },
   mainWindow: {
     width: 460,

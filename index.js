@@ -31,6 +31,11 @@ app.on('ready', () => {
   setAppMenu(mainWindow);
   // create tray
   tray = new AppTray(trayIconPath, mainWindow);
+  // create TouchBar on macOS
+  if (process.platform === 'darwin') {
+    const setTouchBar = require('./app/touch_bar');
+    setTouchBar(mainWindow);
+  }
 });
 
 // Handle BrowserWindow setup
