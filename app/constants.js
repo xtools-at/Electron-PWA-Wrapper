@@ -3,6 +3,7 @@ const Constants = {
     appName: 'Leasingrechner',
     appUrl: 'https://www.leasingrechnen.at', // without trailing slash!
     nodeIntegrationEnabled: false, // keep disabled unless you run into ipcRenderer-specific troubles
+    enableDevMenu: false, // enable for dev-builds only!
     userAgentPostfixWindows: 'WindowsApp', // custom user agent postfixes to distinguish traffic in Analytics
     userAgentPostfixOSX: 'MacOSXApp',
     themeColor: '#F44336',
