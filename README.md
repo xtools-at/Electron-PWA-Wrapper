@@ -27,7 +27,7 @@ Drafted for the future Desktop-version of my [Leasing Calculator](https://www.le
 - Check `app/constants.js` for localizing your Strings (this project is German by default).
 	- if you know how to do multi-language in Electron, a Pull-Request would be much appreciated!!
 - While in `app/constants.js`, check the `settings` and `mainWindow` sections too.
-- The Offline- and Loading-Screens are located in `src/*.html`, their corresponding images and styles in `src/res`.
+- The Offline- and Loading-Screens are located in `src/offline.html` and `src/loader.html`, their corresponding images and styles in `src/res`.
 
 ## Building with [electron-builder](https://github.com/electron-userland/electron-builder)
 Electron-PWA-Wrapper comes with *electron-builder* preconfigured for macOS (dmg, mas) and Windows (Appx + Portable).

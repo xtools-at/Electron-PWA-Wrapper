@@ -18,6 +18,9 @@
                 max-width: 315px;
                 min-width: 238px;
             }
+            .toolbar-actions button.disabled span.icon {
+              color: #CCCCCC;
+            }
         </style>
     </head>
     <body>
@@ -132,7 +135,7 @@
                   </div>
                   <div id="app_container" class="pane">
                       <!-- main app -->
-                      <webview id="app" src="https://www.leasingrechnen.atx" useragent="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36 MacOSXApp" allowpopups autosize minwidth="360" minheight="360"></webview>
+                      <webview id="app" src="https://www.leasingrechnen.at" useragent="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36 MacOSXApp" allowpopups autosize minwidth="360" minheight="360"></webview>
                   </div>
                 </div>
             </div>
@@ -164,7 +167,6 @@
 
             const resetNavItems = function() {
                 const url = webview.getURL();
-                console.log(url);
                 document.querySelectorAll('.nav-group-item').forEach(function(item) {
                     item.classList.remove('active');
                     let dataUrl = item.dataset.url;
@@ -175,6 +177,9 @@
                     }
                 });
             };
+
+            const backButton = document.querySelector('#trigger_back');
+            const forwardButton = document.querySelector('#trigger_forward');
 
             // set up webview
             webview.addEventListener('dom-ready', function () {
@@ -194,6 +199,17 @@
                 if (ev.url && ev.url.indexOf('erfolgreich') !== -1) {
                     window.ipcRenderer.send('webview:notification');
                 }
+                // en-/disable back & forward Button
+                if (webview.canGoBack()) {
+                  backButton.classList.remove('disabled');
+                } else {
+                  backButton.classList.add('disabled');
+                }
+                if (webview.canGoForward()) {
+                  forwardButton.classList.remove('disabled');
+                } else {
+                  forwardButton.classList.add('disabled');
+                }
             });
 
             webview.addEventListener('new-window', (e) => {
@@ -209,7 +225,6 @@
             const shareButton = document.querySelector('#trigger_share');
             shareButton.addEventListener('click', function () {
                 webview.executeJavaScript(
-                    //'$("#share-link").click();',
                     `
                       var el = document.querySelector('#share-link');
                       var etype = 'click';
@@ -225,8 +240,6 @@
                 );
             });
             /// Browser Navigation
-            const backButton = document.querySelector('#trigger_back');
-            const forwardButton = document.querySelector('#trigger_forward');
             backButton.addEventListener('click', function () {
                 if (webview.canGoBack()) {
                     webview.goBack();
