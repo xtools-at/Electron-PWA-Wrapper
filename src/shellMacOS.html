@@ -284,9 +284,26 @@
                 });
             });
 
-            // TouchBar listener
+            // TouchBar listeners
             window.ipcRenderer.on('touchBar:loadUrl', function (ev, url) {
               webview.loadURL(baseUrl + url);
+            });
+
+            window.ipcRenderer.on('touchBar:navigate', function (ev, direction) {
+              console.log(direction + ' ' + typeof direction);
+              if (direction === 'back') {
+                if (webview.canGoBack()) {
+                    webview.goBack();
+                    // reset nav items
+                    resetNavItems();
+                }
+              } else if (direction === 'forward') {
+                if (webview.canGoForward()) {
+                    webview.goForward();
+                    // reset nav items
+                    resetNavItems();
+                }
+              }
             });
           }
         </script>
