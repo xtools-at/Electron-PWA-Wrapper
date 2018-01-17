@@ -6,7 +6,7 @@ const Helper = require('./app/helper');
 const MainWindow = require('./app/main_window');
 const c = require('./app/constants');
 
-const { app, Menu, ipcMain } = electron;
+const { app, Menu, ipcMain, Notification } = electron;
 
 let mainWindow;
 let spinnerWindow;
@@ -32,7 +32,7 @@ app.on('ready', () => {
   // create tray
   tray = new AppTray(trayIconPath, mainWindow);
   // create TouchBar on macOS
-  if (c.settings.useTouchBar && process.platform === 'darwin') {
+  if (Helper.useTouchBar()) {
     const setTouchBar = require('./app/touch_bar');
     setTouchBar(mainWindow);
   }
@@ -41,10 +41,12 @@ app.on('ready', () => {
 // Handle BrowserWindow setup
 function loadAppWindows(showLoader) {
   // setup/load main page
-  var appPath = c.settings.usePhotonKitShell && process.platform === 'darwin'
-    ? `file://${__dirname}/src/macOS.html`
-    : c.settings.appUrl;
-  //mainWindow = new MainWindow(, appIconPath, !showLoader);
+  let appPath = c.settings.appUrl;
+  if (Helper.usePhotonKitShell()) {
+    appPath = `file://${__dirname}/src/shellMacOS.html`;
+  } else if (Helper.useWindowsShell) {
+    appPath = `file://${__dirname}/src/shellWindows.html`;
+  }
   mainWindow = new MainWindow(appPath, appIconPath, !showLoader);
 
   // quit app when mainWindow is closed
@@ -89,16 +91,24 @@ ipcMain.on('app:refresh', (event) => {
   }
   
 });
+/// Sample Notification
+if (Notification.isSupported()) {
+  ipcMain.on('webview:notification', (event) => {
+    const notification = new Notification({
+      title: 'Anfrage erfolgreich versandt',
+      // subtitle: 'Subtitle', // macOS only
+      body: 'Sie erhalten Ihr Angebot innerhalb von höchstens 2 Werktagen, aber wir setzen alles daran, schneller zu sein!',
+    });
+    notification.show();
+  });
+}
 
-if (c.settings.usePhotonKitShell && process.platform === 'darwin') {
-  // macOS + PhotonKit listeners
-  //const ipc = require('./app/ipc_mac');
-  const { Notification } = electron;
+// macOS- or Windows Shell listeners
+if (Helper.usePhotonKitShell() || Helper.useWindowsShell()) {
   const resize = function(width, height) {
     let bounds = mainWindow.getBounds();
-    const currSize = mainWindow.getSize();
 
-    const diffWidth = (width - currSize[0]);
+    const diffWidth = (width - bounds.width);
     let newX = bounds.x - (diffWidth / 2);
     if (newX < 0) {
       newX = 0;
@@ -109,17 +119,6 @@ if (c.settings.usePhotonKitShell && process.platform === 'darwin') {
 
     mainWindow.setBounds(bounds, true);
   };
-
-  if (Notification.isSupported()) {
-    ipcMain.on('webview:notification', (event) => {
-      const notification = new Notification({
-        title: 'Anfrage erfolgreich versandt',
-        // subtitle: 'Subtitle',
-        body: 'Sie erhalten Ihr Angebot innerhalb von höchstens 2 Werktagen, aber wir setzen alles daran, schneller zu sein!',
-      });
-      notification.show();
-    });
-  }
 
   ipcMain.on('titlebar:small_view', (event) => {
     resize(c.mainWindow.width, c.mainWindow.height);

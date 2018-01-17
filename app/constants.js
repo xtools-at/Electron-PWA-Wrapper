@@ -8,10 +8,11 @@ const Constants = {
     themeColor: '#F44336',
     titleBarStyle: 'hidden', // use 'default' to reset
     windowBackgroundColor: '#FFFFFF', // set to false to disable
-    frame: false, // set to false for Frameless Windows
+    frame: true, // set to false for Frameless Windows
     useTouchBar: true,
-    usePhotonKitShell: true, // macOS: loads src/macOS.html with PhotonKit instead of the appUrl.
-                             //requires 'nodeIntegrationEnabled: true'.
+    usePhotonKitShell: true, // macOS: loads src/shellMacOS.html with PhotonKit instead of the appUrl.
+    useWindowsShell: true,   // Win: use custom shell from src/shellWIndows.html
+                             // both require 'nodeIntegrationEnabled: true'.
   },
   mainWindow: {
     width: 830,
