@@ -2,6 +2,9 @@ const electron = require('electron');
 const { app } = electron;
 const c = require('./constants');
 
+// enable for dev-builds only!
+const enableDevMenu = false;
+
 // create menu template
 const menuTemplate = function(mainWindow) {
   const template = [
@@ -222,8 +225,8 @@ const menuTemplate = function(mainWindow) {
 
   // additional menu items for development
   // won't get hidden in Builds, so we're commenting them out.
-  /*
-  if (process.env.NODE_ENV !== 'production') {
+
+  if (enableDevMenu) {
     template.push({
       label: 'Development',
       submenu: [
@@ -249,7 +252,6 @@ const menuTemplate = function(mainWindow) {
       ]
     });
   }
-  */
 
   return template;
 }
