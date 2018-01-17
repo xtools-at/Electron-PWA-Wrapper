@@ -1,6 +1,6 @@
 {
   "name": "LeasingRechner",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Electron Desktop App Wrapper for PWAs / leasingrechnen.at",
   "homepage": "https://www.leasingrechnen.at",
   "main": "index.js",
