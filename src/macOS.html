@@ -5,7 +5,7 @@
         <link href="res/css/photon.min.css" rel="stylesheet" />
         <style>
             #app_container {
-                display:flex;
+                display: flex;
             }
             #app {
                 flex: 1;
@@ -177,9 +177,12 @@
                     }
                 });
             };
-
+            // DOM elements
             const backButton = document.querySelector('#trigger_back');
             const forwardButton = document.querySelector('#trigger_forward');
+            const shareButton = document.querySelector('#trigger_share');
+            const smallViewButton = document.querySelector('#trigger_small_view');
+            const largeViewButton = document.querySelector('#trigger_large_view');
 
             // set up webview
             webview.addEventListener('dom-ready', function () {
@@ -222,7 +225,6 @@
 
             // set up titlebar
             /// Share
-            const shareButton = document.querySelector('#trigger_share');
             shareButton.addEventListener('click', function () {
                 webview.executeJavaScript(
                     `
@@ -255,8 +257,6 @@
                 }
             });
             /// Resize
-            const smallViewButton = document.querySelector('#trigger_small_view');
-            const largeViewButton = document.querySelector('#trigger_large_view');
             smallViewButton.addEventListener('click', function () {
                 window.ipcRenderer.send('titlebar:small_view');
             });
