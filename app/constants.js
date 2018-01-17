@@ -2,16 +2,16 @@ const Constants = {
   settings: {
     appName: 'Leasingrechner',
     appUrl: 'https://www.leasingrechnen.at', // without trailing slash!
-    nodeIntegrationEnabled: true, // keep disabled unless you run into ipcRenderer-specific troubles
+    nodeIntegrationEnabled: false, // keep disabled unless you run into ipcRenderer-specific troubles
     userAgentPostfixWindows: 'WindowsApp', // custom user agent postfixes to distinguish traffic in Analytics
     userAgentPostfixOSX: 'MacOSXApp',
     themeColor: '#F44336',
-    titleBarStyle: 'hidden', // use 'default' to reset
     windowBackgroundColor: '#FFFFFF', // set to false to disable
-    frame: true, // set to false for Frameless Windows
-    useTouchBar: true,
-    usePhotonKitShell: true, // macOS: loads src/shellMacOS.html with PhotonKit instead of the appUrl.
-    useWindowsShell: true,   // Win: use custom shell from src/shellWIndows.html
+    titleBarStyle: 'default', // use 'hidden' or 'hiddenInset' for Frameless windows
+    frame: true, // set to false for Frameless windows
+    useTouchBar: false, // edit in app/touch_bar.js
+    usePhotonKitShell: false, // macOS: loads src/shellMacOS.html with PhotonKit instead of the appUrl.
+    useWindowsShell: false,   // Win: use custom shell from src/shellWIndows.html
                              // both require 'nodeIntegrationEnabled: true'.
   },
   mainWindow: {
