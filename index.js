@@ -44,7 +44,7 @@ function loadAppWindows(showLoader) {
   let appPath = c.settings.appUrl;
   if (Helper.usePhotonKitShell()) {
     appPath = `file://${__dirname}/src/shellMacOS.html`;
-  } else if (Helper.useWindowsShell) {
+  } else if (Helper.useWindowsShell()) {
     appPath = `file://${__dirname}/src/shellWindows.html`;
   }
   mainWindow = new MainWindow(appPath, appIconPath, !showLoader);
