@@ -1,16 +1,24 @@
 const Constants = {
   settings: {
-    appName: 'Leasing Rechner',
+    appName: 'Leasingrechner',
     appUrl: 'https://www.leasingrechnen.at', // without trailing slash!
-    nodeIntegrationEnabled: false, // disable if you need jQuery,Angular,...
-    userAgentPostfixDefault: 'DesktopApp',
-    userAgentPostfixWindows: 'WindowsApp',
+    nodeIntegrationEnabled: true, // keep disabled unless you run into ipcRenderer-specific troubles
+    userAgentPostfixWindows: 'WindowsApp', // custom user agent postfixes to distinguish traffic in Analytics
     userAgentPostfixOSX: 'MacOSXApp',
     themeColor: '#F44336',
+    titleBarStyle: 'hidden', // use 'default' to reset
+    windowBackgroundColor: '#FFFFFF', // set to false to disable
+    frame: true, // set to false for Frameless Windows
+    useTouchBar: true,
+    usePhotonKitShell: true, // macOS: loads src/shellMacOS.html with PhotonKit instead of the appUrl.
+    useWindowsShell: true,   // Win: use custom shell from src/shellWIndows.html
+                             // both require 'nodeIntegrationEnabled: true'.
   },
   mainWindow: {
-    width: 460,
-    height: 780,
+    width: 830,
+    height: 860,
+    largeWidth: 1220,
+    largeHeight: 860,
   },
   strings: {
     open: 'Öffnen',
@@ -56,6 +64,12 @@ const Constants = {
       inquiry: 'Leasing Angebot anfordern',
     },
   },
+  touchBar: {
+    label: 'Leasing',
+    car: 'Kfz Rechner',
+    movables: 'Mobilien Rechner',
+    inquiry: 'Angebot anfordern',
+  }
 };
 
 module.exports = Constants;

@@ -18,6 +18,7 @@
     "start": "./node_modules/.bin/electron .",
     "pack": "electron-builder --dir",
     "dist": "electron-builder",
+    "build": "./node_modules/.bin/electron-builder build",
     "postinstall": "electron-builder install-app-deps"
   },
   "devDependencies": {

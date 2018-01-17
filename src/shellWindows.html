@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Leasingrechner</title>
+        <link href="res/css/photon.min.css" rel="stylesheet" />
+        <style>
+            .window {
+                display: flex;
+            }
+            #app_container {
+                display: flex;
+                flex: 1;
+            }
+            #app {
+                flex: 1;
+            }
+            .drag {
+                -webkit-app-region: drag;
+                -webkit-user-select: none;
+            }
+            .toolbar-actions button.disabled span.icon {
+                color: #CCCCCC;
+            }
+            .toolbar.toolbar-header {
+                background-color: #F44336;
+                background-image: -webkit-gradient(linear,left top,left bottom,color-stop(0,#F44336),color-stop(100%,#F44336));
+                background-image: -webkit-linear-gradient(top,#F44336 0,#F44336 100%);
+                background-image: linear-gradient(to bottom,#F44336 0,#F44336 100%);
+                
+            }
+            .toolbar-header {
+                border-color: '#F44336';
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="window">
+            <!-- header -->
+            <header id="titlebar" class="toolbar toolbar-header drag">
+                <div class="toolbar-actions drag">
+                    <button id="trigger_menu" class="btn btn-default">
+                        <span class="icon icon-menu"></span>
+                    </button>
+                    <div class="btn-group">
+                      <button id="trigger_back" class="btn btn-default disabled">
+                        <span class="icon icon-left-open"></span>
+                      </button>
+                      <button id="trigger_forward" class="btn btn-default disabled">
+                        <span class="icon icon-right-open"></span>
+                      </button>
+                    </div>
+
+                    <div class="btn-group">
+                      <button id="trigger_small_view" class="btn btn-default">
+                        <span class="icon icon-resize-small"></span>
+                      </button>
+                      <button id="trigger_large_view" class="btn btn-default">
+                        <span class="icon icon-resize-full"></span>
+                      </button>
+                    </div>
+                    <button class="btn btn-default pull-right">
+                      <span id="trigger_share" class="icon icon-megaphone"></span>
+                    </button>
+                </div>
+            </header>
+            <main id="app_container" class="pane">
+                  <!-- main app -->
+                  <webview id="app" src="https://www.leasingrechnen.at" useragent="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36 WindowsApp" allowpopups autosize minwidth="360" minheight="360"></webview>
+             </main>
+        </div>
+
+        <script>
+          onload = () => {
+            const {shell} = require('electron');
+            const webview = document.querySelector('#app');
+
+            const userAgent = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36 WindowsApp';
+            const baseUrl = 'https://www.leasingrechnen.at';
+
+            // DOM elements
+            const backButton = document.querySelector('#trigger_back');
+            const forwardButton = document.querySelector('#trigger_forward');
+            const shareButton = document.querySelector('#trigger_share');
+            const smallViewButton = document.querySelector('#trigger_small_view');
+            const largeViewButton = document.querySelector('#trigger_large_view');
+            const menuButton = document.querySelector('#trigger_menu');
+
+            // set up webview
+            webview.addEventListener('dom-ready', function () {
+                webview.setUserAgent(userAgent);
+            });
+
+            webview.addEventListener('did-fail-load', function () {
+                webview.loadURL(`file://${__dirname}/offlineWebview.html`);
+            });
+
+            webview.addEventListener('load-commit', function (ev) {
+                // show Notification if user lands on success page
+                if (ev.url && ev.url.indexOf('erfolgreich') !== -1) {
+                    window.ipcRenderer.send('webview:notification');
+                }
+                // en-/disable back & forward Button
+                if (webview.canGoBack()) {
+                  backButton.classList.remove('disabled');
+                } else {
+                  backButton.classList.add('disabled');
+                }
+                if (webview.canGoForward()) {
+                  forwardButton.classList.remove('disabled');
+                } else {
+                  forwardButton.classList.add('disabled');
+                }
+            });
+
+            webview.addEventListener('new-window', (e) => {
+                // open new Windows in Browser instead
+                const protocol = require('url').parse(e.url).protocol;
+                if (protocol === 'http:' || protocol === 'https:') {
+                    shell.openExternal(e.url);
+                }
+            });
+
+            // set up titlebar
+            /// Share
+            shareButton.addEventListener('click', function () {
+                webview.executeJavaScript(
+                    `
+                      var el = document.querySelector('#share-link');
+                      var etype = 'click';
+                      if (el.fireEvent) {
+                        el.fireEvent('on' + etype);
+                      } else {
+                        var evObj = document.createEvent('Events');
+                        evObj.initEvent(etype, true, false);
+                        el.dispatchEvent(evObj);
+                      }
+                    `,
+                    true
+                );
+            });
+            /// Menu
+            menuButton.addEventListener('click', function () {
+                webview.executeJavaScript(
+                    `
+                      var el = document.querySelector('.button-collapse');
+                      var etype = 'click';
+                      if (el.fireEvent) {
+                        el.fireEvent('on' + etype);
+                      } else {
+                        var evObj = document.createEvent('Events');
+                        evObj.initEvent(etype, true, false);
+                        el.dispatchEvent(evObj);
+                      }
+                    `,
+                    true
+                );
+            });
+            /// Browser Navigation
+            backButton.addEventListener('click', function () {
+                if (webview.canGoBack()) {
+                    webview.goBack();
+                }
+            });
+            forwardButton.addEventListener('click', function () {
+                if (webview.canGoForward()) {
+                    webview.goForward();
+                }
+            });
+            /// Resize
+            smallViewButton.addEventListener('click', function () {
+                window.ipcRenderer.send('titlebar:small_view');
+            });
+            largeViewButton.addEventListener('click', function () {
+                window.ipcRenderer.send('titlebar:large_view');
+            });
+          }
+        </script>
+    </body>
+</html>

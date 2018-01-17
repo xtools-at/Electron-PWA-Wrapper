@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Leasingrechner</title>
+        <link href="res/css/photon.min.css" rel="stylesheet" />
+        <style>
+            #app_container {
+                display: flex;
+            }
+            #app {
+                flex: 1;
+            }
+            .drag {
+                -webkit-app-region: drag;
+                -webkit-user-select: none;
+            }
+            .pane-custom {
+                max-width: 315px;
+                min-width: 238px;
+            }
+            .toolbar-actions button.disabled span.icon {
+              color: #CCCCCC;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div class="window">
+            <!-- header -->
+            <header class="toolbar toolbar-header">
+                <h1 class="title drag">Leasingrechner</h1>
+                <div class="toolbar-actions">
+                    <div class="btn-group">
+                      <button id="trigger_back" class="btn btn-default disabled">
+                        <span class="icon icon-left-open"></span>
+                      </button>
+                      <button id="trigger_forward" class="btn btn-default disabled">
+                        <span class="icon icon-right-open"></span>
+                      </button>
+                    </div>
+
+                    <div class="btn-group">
+                      <button id="trigger_small_view" class="btn btn-default">
+                        <span class="icon icon-resize-small"></span>
+                      </button>
+                      <button id="trigger_large_view" class="btn btn-default">
+                        <span class="icon icon-resize-full"></span>
+                      </button>
+                    </div>
+                    <!--
+                    <div class="btn-group">
+                      <button class="btn btn-default">
+                        <span class="icon icon-cloud"></span>
+                      </button>
+                      <button class="btn btn-default">
+                        <span class="icon icon-popup"></span>
+                      </button>
+                      <button class="btn btn-default">
+                        <span class="icon icon-shuffle"></span>
+                      </button>
+                    </div>
+
+                    <button class="btn btn-default">
+                      <span class="icon icon-home icon-text"></span>
+                      Filters
+                    </button>
+                    -->
+                    <button class="btn btn-default pull-right">
+                      <span id="trigger_share" class="icon icon-megaphone"></span>
+                    </button>
+                </div>
+            </header>
+
+            <div class="window-content">
+                <div class="pane-group">
+                  <div class="pane-custom sidebar">
+                      <!-- menu -->
+                      <nav class="nav-group">
+                          <h5 class="nav-group-title">Leasing</h5>
+                          <a id="home" class="nav-group-item active" data-url="/">
+                            <span class="icon icon-traffic-cone"></span>
+                            Kfz Rechner
+                          </a>
+                          <a class="nav-group-item" data-url="/mobilien-rechner">
+                            <span class="icon icon-trophy"></span>
+                            Mobilien Rechner
+                          </a>
+                          <a class="nav-group-item" data-url="/angebot">
+                            <span class="icon icon-paper-plane"></span>
+                            Leasingangebot anfordern
+                          </a>
+                        </nav>
+                        <nav class="nav-group">
+                          <h5 class="nav-group-title">Know How</h5>
+                          <a class="nav-group-item" data-url="/leasing-grundlagen">
+                            <span class="icon icon-info"></span>
+                            Leasing Grundlagen
+                          </a>
+                          <a class="nav-group-item" data-url="/leasing-vs-kredit">
+                            <span class="icon icon-address"></span>
+                            Leasing vs. Kredit
+                          </a>
+                          <a class="nav-group-item" data-url="/restwert">
+                            <span class="icon icon-chart-area"></span>
+                            Modelle und Restwert
+                          </a>
+                          <a class="nav-group-item" data-url="/eigenleistungen">
+                            <span class="icon icon-chart-pie"></span>
+                            Eigenleistungen
+                          </a>
+                        </nav>
+                        <nav class="nav-group">
+                          <h5 class="nav-group-title">Support</h5>
+                          <a class="nav-group-item" data-url="/ueber-uns">
+                            <span class="icon icon-quote"></span>
+                            Über Uns
+                          </a>
+                          <a class="nav-group-item" data-url="/kontakt">
+                            <span class="icon icon-lifebuoy"></span>
+                            Kontakt
+                          </a>
+                          <a class="nav-group-item" data-url="/nutzungsbedingungen">
+                            <span class="icon icon-briefcase"></span>
+                            Nutzungsbedingungen
+                          </a>
+                          <a class="nav-group-item" data-url="/datenschutz">
+                            <span class="icon icon-lock"></span>
+                            Datenschutz
+                          </a>
+                          <a class="nav-group-item" data-url="/impressum">
+                            <span class="icon icon-clipboard"></span>
+                            Impressum
+                          </a>
+                        </nav>
+                  </div>
+                  <div id="app_container" class="pane">
+                      <!-- main app -->
+                      <webview id="app" src="https://www.leasingrechnen.at" useragent="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36 MacOSXApp" allowpopups autosize minwidth="360" minheight="360"></webview>
+                  </div>
+                </div>
+            </div>
+
+            <!-- footer -->
+            <footer class="toolbar toolbar-footer">
+              <div class="toolbar-actions">
+                <h1 class="title drag">&copy; leasingrechnen.at</h1>
+                <!--
+                <button class="btn btn-default">
+                  Cancel
+                </button>
+                <button class="btn btn-primary pull-right">
+                  Save
+                </button>
+                -->
+              </div>
+            </footer>
+
+        </div>
+
+        <script>
+          onload = () => {
+            const {shell} = require('electron');
+            const webview = document.querySelector('#app');
+
+            const userAgent = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36 MacOSXApp';
+            const baseUrl = 'https://www.leasingrechnen.at';
+
+            const resetNavItems = function() {
+                const url = webview.getURL();
+                document.querySelectorAll('.nav-group-item').forEach(function(item) {
+                    item.classList.remove('active');
+                    let dataUrl = item.dataset.url;
+                    if (url && dataUrl &&
+                      ((dataUrl !== '/' && url.indexOf(dataUrl) !== -1)
+                      || (dataUrl === '/' && url === baseUrl + '/'))) {
+                      item.classList.add('active');
+                    }
+                });
+            };
+            // DOM elements
+            const backButton = document.querySelector('#trigger_back');
+            const forwardButton = document.querySelector('#trigger_forward');
+            const shareButton = document.querySelector('#trigger_share');
+            const smallViewButton = document.querySelector('#trigger_small_view');
+            const largeViewButton = document.querySelector('#trigger_large_view');
+
+            // set up webview
+            webview.addEventListener('dom-ready', function () {
+                webview.setUserAgent(userAgent);
+            });
+
+            webview.addEventListener('did-fail-load', function () {
+                webview.loadURL(`file://${__dirname}/offlineWebview.html`);
+                // reset navigation items
+                resetNavItems();
+            });
+
+            webview.addEventListener('load-commit', function (ev) {
+                // reset nav items
+                resetNavItems();
+                // show Notification if user lands on success page
+                if (ev.url && ev.url.indexOf('erfolgreich') !== -1) {
+                    window.ipcRenderer.send('webview:notification');
+                }
+                // en-/disable back & forward Button
+                if (webview.canGoBack()) {
+                  backButton.classList.remove('disabled');
+                } else {
+                  backButton.classList.add('disabled');
+                }
+                if (webview.canGoForward()) {
+                  forwardButton.classList.remove('disabled');
+                } else {
+                  forwardButton.classList.add('disabled');
+                }
+            });
+
+            webview.addEventListener('new-window', (e) => {
+                // open new Windows in Browser instead
+                const protocol = require('url').parse(e.url).protocol;
+                if (protocol === 'http:' || protocol === 'https:') {
+                    shell.openExternal(e.url);
+                }
+            });
+
+            // set up titlebar
+            /// Share
+            shareButton.addEventListener('click', function () {
+                webview.executeJavaScript(
+                    `
+                      var el = document.querySelector('#share-link');
+                      var etype = 'click';
+                      if (el.fireEvent) {
+                        el.fireEvent('on' + etype);
+                      } else {
+                        var evObj = document.createEvent('Events');
+                        evObj.initEvent(etype, true, false);
+                        el.dispatchEvent(evObj);
+                      }
+                    `,
+                    true
+                );
+            });
+            /// Browser Navigation
+            backButton.addEventListener('click', function () {
+                if (webview.canGoBack()) {
+                    webview.goBack();
+                    // reset nav items
+                    resetNavItems();
+                }
+            });
+            forwardButton.addEventListener('click', function () {
+                if (webview.canGoForward()) {
+                    webview.goForward();
+                    // reset nav items
+                    resetNavItems();
+                }
+            });
+            /// Resize
+            smallViewButton.addEventListener('click', function () {
+                window.ipcRenderer.send('titlebar:small_view');
+            });
+            largeViewButton.addEventListener('click', function () {
+                window.ipcRenderer.send('titlebar:large_view');
+            });
+
+            // set up navigation
+            /// event handler
+            const onNavItemClick = function (el) {
+                // set all inactive
+                resetNavItems();
+                // load url in webview
+                var targetUrl = baseUrl + el.dataset.url;
+                if (targetUrl) {
+                    webview.loadURL(targetUrl, {
+                        userAgent: userAgent,
+                    });
+                }
+            }
+            /// hook up all nav items
+            document.querySelectorAll('.nav-group-item').forEach(function(item) {
+                item.addEventListener('click', function (ev) {
+                    onNavItemClick(ev.target);
+                });
+            });
+
+            // TouchBar listener
+            window.ipcRenderer.on('touchBar:loadUrl', function (ev, url) {
+              webview.loadURL(baseUrl + url);
+            });
+          }
+        </script>
+    </body>
+</html>

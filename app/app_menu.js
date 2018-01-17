@@ -1,7 +1,6 @@
 const electron = require('electron');
-const { app, Menu } = electron;
+const { Menu } = electron;
 const menuTemplate = require('./app_menu_template');
-const c = require('./constants');
 
 function createMenu(mainWindow) {
   return  Menu.buildFromTemplate(menuTemplate(mainWindow));
