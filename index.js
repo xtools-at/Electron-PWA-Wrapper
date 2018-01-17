@@ -98,31 +98,33 @@ if (c.settings.usePhotonKitShell && process.platform === 'darwin') {
     let bounds = mainWindow.getBounds();
     const currSize = mainWindow.getSize();
 
-    const diffWidth = (currSize[0] - width);
+    const diffWidth = (width - currSize[0]);
     let newX = bounds.x - (diffWidth / 2);
     if (newX < 0) {
       newX = 0;
     }
     bounds.x = newX;
+    bounds.height = height;
+    bounds.width = width;
 
-    mainWindow.setSize(width, height, true);
     mainWindow.setBounds(bounds, true);
   };
 
   if (Notification.isSupported()) {
     ipcMain.on('webview:notification', (event) => {
-      new Notification({
+      const notification = new Notification({
         title: 'Anfrage erfolgreich versandt',
-        subtitle: 'Subtitle',
+        // subtitle: 'Subtitle',
         body: 'Sie erhalten Ihr Angebot innerhalb von höchstens 2 Werktagen, aber wir setzen alles daran, schneller zu sein!',
-      }).show();
+      });
+      notification.show();
     });
   }
 
   ipcMain.on('titlebar:small_view', (event) => {
-    resize(c.settings.width, c.settings.height);
+    resize(c.mainWindow.width, c.mainWindow.height);
   });
   ipcMain.on('titlebar:large_view', (event) => {
-    resize(c.settings.largeWidth, c.settings.largeHeight);
+    resize(c.mainWindow.largeWidth, c.mainWindow.largeHeight);
   });
 }

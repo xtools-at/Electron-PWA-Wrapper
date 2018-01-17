@@ -63,6 +63,12 @@ const Constants = {
       inquiry: 'Leasing Angebot anfordern',
     },
   },
+  touchBar: {
+    label: 'Leasing',
+    car: 'Kfz Rechner',
+    movables: 'Mobilien Rechner',
+    inquiry: 'Angebot anfordern',
+  }
 };
 
 module.exports = Constants;

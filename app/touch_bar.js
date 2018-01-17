@@ -8,28 +8,37 @@ const setTouchBar = function(mainWindow) {
     // create template
     const touchBarTemplate = [
         new TouchBarLabel({
-            label: c.menu.leasing.label,
+            label: c.touchBar.label,
         }),
         new TouchBarButton({
-            label: c.menu.leasing.car,
-            backgroundColor: '#7851A9',
+            label: c.touchBar.car,
+            backgroundColor: c.settings.themeColor,
             click: () => {
-                mainWindow.loadRelativeUrl('/');
+                mainWindow.webContents.send(
+                    'touchBar:loadUrl',
+                    '/'
+                );
             },
         }),
-        new TouchBarSpacer({size: 'small'}),
+        //new TouchBarSpacer({size: 'small'}),
         new TouchBarButton({
-            label: c.menu.leasing.movables,
-            backgroundColor: '#7851A9',
+            label: c.touchBar.movables,
+            backgroundColor: c.settings.themeColor,
             click: () => {
-                mainWindow.loadRelativeUrl('/mobilien-rechner');
+                mainWindow.webContents.send(
+                    'touchBar:loadUrl',
+                    '/mobilien-rechner'
+                );
             },
         }),
         new TouchBarButton({
-            label: c.menu.leasing.inquiry,
-            backgroundColor: '#7851A9',
+            label: c.touchBar.inquiry,
+            backgroundColor: c.settings.themeColor,
             click: () => {
-                mainWindow.loadRelativeUrl('/angebot');
+                mainWindow.webContents.send(
+                    'touchBar:loadUrl',
+                    '/angebot'
+                );
             },
         }),
     ];

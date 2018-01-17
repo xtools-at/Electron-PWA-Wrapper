@@ -132,7 +132,7 @@
                   </div>
                   <div id="app_container" class="pane">
                       <!-- main app -->
-                      <webview id="app" src="https://www.leasingrechnen.at" useragent="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36 MacOSXApp" allowpopups autosize minwidth="360" minheight="360"></webview>
+                      <webview id="app" src="https://www.leasingrechnen.atx" useragent="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36 MacOSXApp" allowpopups autosize minwidth="360" minheight="360"></webview>
                   </div>
                 </div>
             </div>
@@ -158,31 +158,40 @@
           onload = () => {
             const {shell} = require('electron');
             const webview = document.querySelector('#app');
+
             const userAgent = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36 MacOSXApp';
+            const baseUrl = 'https://www.leasingrechnen.at';
+
             const resetNavItems = function() {
+                const url = webview.getURL();
+                console.log(url);
                 document.querySelectorAll('.nav-group-item').forEach(function(item) {
                     item.classList.remove('active');
+                    let dataUrl = item.dataset.url;
+                    if (url && dataUrl &&
+                      ((dataUrl !== '/' && url.indexOf(dataUrl) !== -1)
+                      || (dataUrl === '/' && url === baseUrl + '/'))) {
+                      item.classList.add('active');
+                    }
                 });
             };
 
             // set up webview
-            
             webview.addEventListener('dom-ready', function () {
                 webview.setUserAgent(userAgent);
             });
 
             webview.addEventListener('did-fail-load', function () {
-                webview.loadURL('file://./offlineWebview.html');
+                webview.loadURL(`file://${__dirname}/offlineWebview.html`);
                 // reset navigation items
                 resetNavItems();
-                document.querySelector('#home').classList.add('active');
             });
 
-            webview.addEventListener('will-navigate', function (url) {
+            webview.addEventListener('load-commit', function (ev) {
                 // reset nav items
                 resetNavItems();
                 // show Notification if user lands on success page
-                if (url && url.indexOf('erfolgreich') !== -1) {
+                if (ev.url && ev.url.indexOf('erfolgreich') !== -1) {
                     window.ipcRenderer.send('webview:notification');
                 }
             });
@@ -247,10 +256,7 @@
             const onNavItemClick = function (el) {
                 // set all inactive
                 resetNavItems();
-                // set current active
-                el.classList.add('active');
                 // load url in webview
-                var baseUrl = 'https://www.leasingrechnen.at';
                 var targetUrl = baseUrl + el.dataset.url;
                 if (targetUrl) {
                     webview.loadURL(targetUrl, {
@@ -263,6 +269,11 @@
                 item.addEventListener('click', function (ev) {
                     onNavItemClick(ev.target);
                 });
+            });
+
+            // TouchBar listener
+            window.ipcRenderer.on('touchBar:loadUrl', function (ev, url) {
+              webview.loadURL(baseUrl + url);
             });
           }
         </script>
