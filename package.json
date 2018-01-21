@@ -1,7 +1,7 @@
 {
   "name": "LeasingRechner",
-  "version": "1.0.1",
-  "description": "Electron Desktop App Wrapper for PWAs / leasingrechnen.at",
+  "version": "1.0.2",
+  "description": "Einfach und zuverlässig Leasingrate für Ihr Traumauto berechnen und gleich Angebot anfordern.",
   "homepage": "https://www.leasingrechnen.at",
   "main": "index.js",
   "author": {
