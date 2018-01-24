@@ -21,11 +21,6 @@
             .toolbar-actions button.disabled span.icon {
               color: #CCCCCC;
             }
-            @media only screen and (min-width: 1021px) {
-              #trigger_menu {
-                display:none;
-              }
-            }
         </style>
     </head>
     <body>
@@ -35,9 +30,6 @@
             <header class="toolbar toolbar-header">
                 <h1 class="title drag">Leasingrechner</h1>
                 <div class="toolbar-actions">
-                    <button id="trigger_menu" class="btn btn-default">
-                        <span class="icon icon-menu"></span>
-                    </button>
                     <div class="btn-group">
                       <button id="trigger_back" class="btn btn-default disabled">
                         <span class="icon icon-left-open"></span>
@@ -80,9 +72,71 @@
             </header>
 
             <div class="window-content">
-                <div id="app_container">
-                    <!-- main app -->
-                    <webview id="app" src="https://www.leasingrechnen.at" useragent="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36 MacOSXApp" allowpopups autosize minwidth="360" minheight="360"></webview>
+                <div class="pane-group">
+                  <div class="pane-custom sidebar">
+                      <!-- menu -->
+                      <nav class="nav-group">
+                          <h5 class="nav-group-title">Leasing</h5>
+                          <a id="home" class="nav-group-item active" data-url="/">
+                            <span class="icon icon-traffic-cone"></span>
+                            Kfz Rechner
+                          </a>
+                          <a class="nav-group-item" data-url="/mobilien-rechner">
+                            <span class="icon icon-trophy"></span>
+                            Mobilien Rechner
+                          </a>
+                          <a class="nav-group-item" data-url="/angebot">
+                            <span class="icon icon-paper-plane"></span>
+                            Leasingangebot anfordern
+                          </a>
+                        </nav>
+                        <nav class="nav-group">
+                          <h5 class="nav-group-title">Know How</h5>
+                          <a class="nav-group-item" data-url="/leasing-grundlagen">
+                            <span class="icon icon-info"></span>
+                            Leasing Grundlagen
+                          </a>
+                          <a class="nav-group-item" data-url="/leasing-vs-kredit">
+                            <span class="icon icon-address"></span>
+                            Leasing vs. Kredit
+                          </a>
+                          <a class="nav-group-item" data-url="/restwert">
+                            <span class="icon icon-chart-area"></span>
+                            Modelle und Restwert
+                          </a>
+                          <a class="nav-group-item" data-url="/eigenleistungen">
+                            <span class="icon icon-chart-pie"></span>
+                            Eigenleistungen
+                          </a>
+                        </nav>
+                        <nav class="nav-group">
+                          <h5 class="nav-group-title">Support</h5>
+                          <a class="nav-group-item" data-url="/ueber-uns">
+                            <span class="icon icon-quote"></span>
+                            Über Uns
+                          </a>
+                          <a class="nav-group-item" data-url="/kontakt">
+                            <span class="icon icon-lifebuoy"></span>
+                            Kontakt
+                          </a>
+                          <a class="nav-group-item" data-url="/nutzungsbedingungen">
+                            <span class="icon icon-briefcase"></span>
+                            Nutzungsbedingungen
+                          </a>
+                          <a class="nav-group-item" data-url="/datenschutz">
+                            <span class="icon icon-lock"></span>
+                            Datenschutz
+                          </a>
+                          <a class="nav-group-item" data-url="/impressum">
+                            <span class="icon icon-clipboard"></span>
+                            Impressum
+                          </a>
+                        </nav>
+                  </div>
+                  <div id="app_container" class="pane">
+                      <!-- main app -->
+                      <webview id="app" src="https://www.leasingrechnen.at" useragent="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36 MacOSXApp" allowpopups autosize minwidth="360" minheight="360"></webview>
+                  </div>
                 </div>
             </div>
 
@@ -111,13 +165,24 @@
             const userAgent = 'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36 MacOSXApp';
             const baseUrl = 'https://www.leasingrechnen.at';
 
+            const resetNavItems = function() {
+                const url = webview.getURL();
+                document.querySelectorAll('.nav-group-item').forEach(function(item) {
+                    item.classList.remove('active');
+                    let dataUrl = item.dataset.url;
+                    if (url && dataUrl &&
+                      ((dataUrl !== '/' && url.indexOf(dataUrl) !== -1)
+                      || (dataUrl === '/' && url === baseUrl + '/'))) {
+                      item.classList.add('active');
+                    }
+                });
+            };
             // DOM elements
             const backButton = document.querySelector('#trigger_back');
             const forwardButton = document.querySelector('#trigger_forward');
             const shareButton = document.querySelector('#trigger_share');
             const smallViewButton = document.querySelector('#trigger_small_view');
             const largeViewButton = document.querySelector('#trigger_large_view');
-            const menuButton = document.querySelector('#trigger_menu');
 
             // set up webview
             webview.addEventListener('dom-ready', function () {
@@ -126,9 +191,13 @@
 
             webview.addEventListener('did-fail-load', function () {
                 webview.loadURL(`file://${__dirname}/offlineWebview.html`);
+                // reset navigation items
+                resetNavItems();
             });
 
             webview.addEventListener('load-commit', function (ev) {
+                // reset nav items
+                resetNavItems();
                 // show Notification if user lands on success page
                 if (ev.url && ev.url.indexOf('erfolgreich') !== -1) {
                     window.ipcRenderer.send('webview:notification');
@@ -172,32 +241,19 @@
                     true
                 );
             });
-            /// Menu
-            menuButton.addEventListener('click', function () {
-                webview.executeJavaScript(
-                    `
-                      var el = document.querySelector('.button-collapse');
-                      var etype = 'click';
-                      if (el.fireEvent) {
-                        el.fireEvent('on' + etype);
-                      } else {
-                        var evObj = document.createEvent('Events');
-                        evObj.initEvent(etype, true, false);
-                        el.dispatchEvent(evObj);
-                      }
-                    `,
-                    true
-                );
-            });
             /// Browser Navigation
             backButton.addEventListener('click', function () {
                 if (webview.canGoBack()) {
                     webview.goBack();
+                    // reset nav items
+                    resetNavItems();
                 }
             });
             forwardButton.addEventListener('click', function () {
                 if (webview.canGoForward()) {
                     webview.goForward();
+                    // reset nav items
+                    resetNavItems();
                 }
             });
             /// Resize
@@ -208,19 +264,44 @@
                 window.ipcRenderer.send('titlebar:large_view');
             });
 
+            // set up navigation
+            /// event handler
+            const onNavItemClick = function (el) {
+                // set all inactive
+                resetNavItems();
+                // load url in webview
+                var targetUrl = baseUrl + el.dataset.url;
+                if (targetUrl) {
+                    webview.loadURL(targetUrl, {
+                        userAgent: userAgent,
+                    });
+                }
+            }
+            /// hook up all nav items
+            document.querySelectorAll('.nav-group-item').forEach(function(item) {
+                item.addEventListener('click', function (ev) {
+                    onNavItemClick(ev.target);
+                });
+            });
+
             // TouchBar listeners
             window.ipcRenderer.on('touchBar:loadUrl', function (ev, url) {
               webview.loadURL(baseUrl + url);
             });
 
             window.ipcRenderer.on('touchBar:navigate', function (ev, direction) {
+              console.log(direction + ' ' + typeof direction);
               if (direction === 'back') {
                 if (webview.canGoBack()) {
                     webview.goBack();
+                    // reset nav items
+                    resetNavItems();
                 }
               } else if (direction === 'forward') {
                 if (webview.canGoForward()) {
                     webview.goForward();
+                    // reset nav items
+                    resetNavItems();
                 }
               }
             });

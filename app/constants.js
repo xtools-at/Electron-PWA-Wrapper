@@ -18,7 +18,7 @@ const Constants = {
     useLinuxShell: false,     // all 3 require 'nodeIntegrationEnabled: true'.
   },
   mainWindow: {
-    width: 830,
+    width: 600,
     height: 860,
     largeWidth: 1220,
     largeHeight: 860,
