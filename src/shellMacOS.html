@@ -4,10 +4,10 @@
         <title>Leasingrechner</title>
         <link href="res/css/photon.min.css" rel="stylesheet" />
         <style>
-            #app_container {
+            #app_container, .window-content {
                 display: flex;
             }
-            #app {
+            #app, #app_container {
                 flex: 1;
             }
             .drag {
@@ -80,10 +80,10 @@
             </header>
 
             <div class="window-content">
-                <div id="app_container">
-                    <!-- main app -->
-                    <webview id="app" src="https://www.leasingrechnen.at" useragent="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36 MacOSXApp" allowpopups autosize minwidth="360" minheight="360"></webview>
-                </div>
+              <div id="app_container">
+                  <!-- main app -->
+                  <webview id="app" src="https://www.leasingrechnen.at" useragent="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36 MacOSXApp" allowpopups autosize minwidth="360" minheight="360"></webview>
+              </div>
             </div>
 
             <!-- footer -->
