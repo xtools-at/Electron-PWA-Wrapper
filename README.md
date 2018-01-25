@@ -1,10 +1,8 @@
 # Electron PWA Wrapper
 
-A sample wrapper app to package your Progressive Web App into a Desktop Application using [Electron](https://github.com/electron/electron).
+A sample wrapper app to package your Progressive Web App into a Desktop Application using [Electron](https://github.com/electron/electron), [Electon-Builder](https://github.com/electron-userland/electron-builder) and [Photon](https://github.com/connors/photon).
 
-Drafted for the future Desktop-version of my [Leasing Calculator](https://www.leasingrechnen.at) Web App using [React](https://github.com/facebook/react), [Redux](https://github.com/reactjs/redux), [Materialize.css](https://github.com/Dogfalo/materialize) and a lot of Offline-First love over at [leasingrechnen.at](https://www.leasingrechnen.at).
-
-### Early development stage, please don't use for your projects yet.
+Drafted for the Desktop-version of my [Leasing Calculator](https://www.leasingrechnen.at) Web App using [React](https://github.com/facebook/react), [Redux](https://github.com/reactjs/redux), [Materialize.css](https://github.com/Dogfalo/materialize) and a lot of Offline-First love over at [leasingrechnen.at](https://www.leasingrechnen.at).
 
 ## Features
 - loading animation window for first boot
@@ -30,7 +28,7 @@ Drafted for the future Desktop-version of my [Leasing Calculator](https://www.le
 - The Offline- and Loading-Screens are located in `src/offline.html` and `src/loader.html`, their corresponding images and styles in `src/res`.
 
 ## Building with [electron-builder](https://github.com/electron-userland/electron-builder)
-Electron-PWA-Wrapper comes with *electron-builder* preconfigured for macOS (dmg, mas) and Windows (Appx + Portable).
+Electron-PWA-Wrapper comes with *electron-builder* preconfigured for macOS (dmg, mas), Linux ((AppImage)[https://appimage.org]) and Windows (Appx + Portable).
 
 ### Preperations
 - You'll need to 
@@ -68,6 +66,9 @@ Electron-PWA-Wrapper comes with *electron-builder* preconfigured for macOS (dmg,
 	- in `build/appx`: replace all the icons in the folder. Sizes and namings are important!
 - Run `npm run build` from the command line (preferably from PowerShell).
 
+### Build for Linux (any distro, using AppImage)
+- Have a machine XXXXXXXXXX
+- Update your `package.json`->`build`->`linux` and ->`appImage`.
 
 ## License
 [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) - if you use it, we wanna see it!
