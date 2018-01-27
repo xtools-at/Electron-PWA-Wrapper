@@ -16,6 +16,15 @@ const Helper = {
   usePhotonKitShell: function() {
     return c.settings.usePhotonKitShell && process.platform === 'darwin';
   },
+  isMacOS: function() {
+    return process.platform === 'darwin';
+  },
+  isWindows: function() {
+    return process.platform === 'win32';
+  },
+  isLinux: function() {
+    return process.platform !== 'win32' && process.platform !== 'darwin';
+  },
 };
 
 module.exports = Helper;

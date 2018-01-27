@@ -16,10 +16,10 @@ let appIconPath;
 
 app.on('ready', () => {
   // set up icons
-  const appIcon = process.platform === 'darwin'
+  const appIcon = (Helper.isMacOS() || Helper.isLinux())
     ? 'app-mac.png'
     : 'app-win.ico';
-  const trayIcon = process.platform === 'darwin'
+  const trayIcon = (Helper.isMacOS() || Helper.isLinux())
     ? 'tray-mac.png'
     : 'tray-win.ico';
   const trayIconPath = path.join(__dirname, 'src', 'assets', trayIcon);
