@@ -5,19 +5,16 @@ A sample wrapper app to package your Progressive Web App into a Desktop Applicat
 Drafted for the Desktop-version of my [Leasing Calculator](https://www.leasingrechnen.at) Web App using [React](https://github.com/facebook/react), [Redux](https://github.com/reactjs/redux), [Materialize.css](https://github.com/Dogfalo/materialize) and a lot of Offline-First love over at [leasingrechnen.at](https://www.leasingrechnen.at).
 
 ## Features
-- loading animation window for first boot
-- handle connectivity issues natively in the wrapper
-- build with electron-builder
-
-## Upcoming Features
+- build with electron-builder for macOS, Windows and Linux
+- custom shell for each OS
 - macOS TouchBar support
-- macOS custom TitleBar
+- handle connectivity issues natively in the wrapper
 
 ## Wanna give it a try?
 - clone repository, *cd* into the directory
 - run `npm install` to get the dependencies
 - run `npm run electron` to start the app
-- check out */app/constants.js* for some options (e.g. setting your own URL)
+- check out */app/constants.js* for more options (e.g. setting your own URL)
 
 ## Customizing
 - Place your Tray- and App-Icons into `src/assets`.
@@ -67,8 +64,11 @@ Electron-PWA-Wrapper comes with *electron-builder* preconfigured for macOS (dmg,
 - Run `npm run build` from the command line (preferably from PowerShell).
 
 ### Build for Linux (any distro, using AppImage)
-- Have a machine XXXXXXXXXX
+- Have a machine running an updated Ubuntu or Debian ready. Install Node.JS >= 6 like described [here](https://nodejs.org/en/download/package-manager).
+- Install build dependencies: `sudo apt install -y icnsutils graphicsmagick`
+- Create your `build/icon.icns` like described in _Build for macOS App Store_.
 - Update your `package.json`->`build`->`linux` and ->`appImage`.
+- Run `npm run build` and find your _.AppImage_ in the `dist` folder.
 
 ## License
 [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) - if you use it, we wanna see it!

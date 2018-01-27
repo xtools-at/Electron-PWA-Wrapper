@@ -2,7 +2,7 @@ const c = require('./constants');
 // Helper functions
 const Helper = {
   useTouchBar: function() {
-    return c.settings.useTouchBar && && this.isMacOS();
+    return c.settings.useTouchBar && this.isMacOS();
   },
   useWindowsShell: function() {
     return  c.settings.useWindowsShell && this.isWindows();
