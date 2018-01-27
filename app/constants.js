@@ -7,6 +7,7 @@ const Constants = {
     userAgentPostfixWindows: 'WindowsApp', // custom user agent postfixes to distinguish traffic in Analytics
     userAgentPostfixOSX: 'MacOSXApp',
     userAgentPostfixLinux: 'LinuxApp',
+    showLoader: false, // show src/loader.html window until your app is fully loaded - may increase loading time
     themeColor: '#F44336',
     windowBackgroundColor: '#FFFFFF', // set to false to disable
     titleBarStyle: 'default', // use 'hidden' or 'hiddenInset' for Frameless windows

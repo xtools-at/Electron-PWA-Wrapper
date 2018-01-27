@@ -32,7 +32,7 @@ app.on('ready', () => {
   appIconPath = path.join(__dirname, 'src', 'assets', appIcon);
 
   // get main page ready
-  loadAppWindows(Helper.isFirstStart());
+  loadAppWindows(c.settings.showLoader);
   // create menu
   setAppMenu(mainWindow);
   // create tray
