@@ -16,13 +16,24 @@ Drafted for the Desktop-version of my [Leasing Calculator](https://www.leasingre
 - run `npm run electron` to start the app
 - check out */app/constants.js* for more options (e.g. setting your own URL)
 
-## Customizing
+## Basic Customizing
 - Place your Tray- and App-Icons into `src/assets`.
 - Change `app/app_menu_template.js` to use your own Menu Items.
 - Check `app/constants.js` for localizing your Strings (this project is German by default).
 	- if you know how to do multi-language in Electron, a Pull-Request would be much appreciated!!
 - While in `app/constants.js`, check the `settings` and `mainWindow` sections too.
 - The Offline- and Loading-Screens are located in `src/offline.html` and `src/loader.html`, their corresponding images and styles in `src/res`.
+
+## Custom Shell
+You can create a custom shell for your WebApp for each OS, to give it a more native look and feel or add functionality you can't supply from your WebApp, using [Photon](https://github.com/connors/photon).
+- Go to `src` directory and find `shellMacOS.html`, `shellWindows.html` or `shellLinux.html` to see a sample implementation of the shell.
+	- *You'll need to customize the whole template to your needs!* This is plain HTML, so your configured values in the _constants.js_ won't work.
+	- There's an example of a multi-column macOS shell with built-in navigation in `src/shellMacOS-withMenu.html`.
+	- If you create new events, sent by the shell to the Main process, you'll have to listen for and handle them in `/index.js`.
+- In `constants.json -> settings`:
+	- Locate `usePhotonKitShell` (macOS), `useWindowsShell` or `useLinuxShell` and enable accordingly.
+	- Set `nodeIntegrationEnabled` to _true_.
+	- Set `frame` to _false_ for macOS.
 
 ## Building with [electron-builder](https://github.com/electron-userland/electron-builder)
 Electron-PWA-Wrapper comes with *electron-builder* preconfigured for macOS (dmg, mas), Linux ((AppImage)[https://appimage.org]) and Windows (Appx + Portable).
@@ -64,11 +75,13 @@ Electron-PWA-Wrapper comes with *electron-builder* preconfigured for macOS (dmg,
 - Run `npm run build` from the command line (preferably from PowerShell).
 
 ### Build for Linux (any distro, using AppImage)
+#### Icons still buggy - any help appreciated!
 - Have a machine running an updated Ubuntu or Debian ready. Install Node.JS >= 6 like described [here](https://nodejs.org/en/download/package-manager).
 - Install build dependencies: `sudo apt install -y icnsutils graphicsmagick`
 - Create your `build/icon.icns` like described in _Build for macOS App Store_.
 - Update your `package.json`->`build`->`linux` and ->`appImage`.
 - Run `npm run build` and find your _.AppImage_ in the `dist` folder.
+- Tell your users to run `chmod a+x *.AppImage` or change permissions to make the file executable.
 
 ## License
 [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) - if you use it, we wanna see it!
