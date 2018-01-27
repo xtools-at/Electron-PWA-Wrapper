@@ -18,13 +18,13 @@ app.on('ready', () => {
   // set up icons
   let appIcon = 'app-mac.png';
   if (Helper.isLinux()) {
-    appIcon = 'app-linux.png';
+    appIcon = 'app-linux512x512.png';
   } else if (Helper.isWindows()) {
     appIcon = 'app-win.ico';
   }
   let trayIcon = 'tray-mac.png';
   if (Helper.isLinux()) {
-    appIcon = 'tray-linux.png';
+    appIcon = 'tray-linux32x32.png';
   } else if (Helper.isWindows()) {
     appIcon = 'tray-win.ico';
   }
