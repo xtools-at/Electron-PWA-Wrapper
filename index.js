@@ -16,12 +16,18 @@ let appIconPath;
 
 app.on('ready', () => {
   // set up icons
-  const appIcon = (Helper.isMacOS() || Helper.isLinux())
-    ? 'app-mac.png'
-    : 'app-win.ico';
-  const trayIcon = (Helper.isMacOS() || Helper.isLinux())
-    ? 'tray-mac.png'
-    : 'tray-win.ico';
+  let appIcon = 'app-mac.png';
+  if (Helper.isLinux()) {
+    appIcon = 'app-linux.png';
+  } else if (Helper.isWindows()) {
+    appIcon = 'app-win.ico';
+  }
+  let trayIcon = 'tray-mac.png';
+  if (Helper.isLinux()) {
+    appIcon = 'tray-linux.png';
+  } else if (Helper.isWindows()) {
+    appIcon = 'tray-win.ico';
+  }
   const trayIconPath = path.join(__dirname, 'src', 'assets', trayIcon);
   appIconPath = path.join(__dirname, 'src', 'assets', appIcon);
 
@@ -46,6 +52,8 @@ function loadAppWindows(showLoader) {
     appPath = `file://${__dirname}/src/shellMacOS.html`;
   } else if (Helper.useWindowsShell()) {
     appPath = `file://${__dirname}/src/shellWindows.html`;
+  } else if (Helper.useLinuxShell()) {
+    appPath = `file://${__dirname}/src/shellLinux.html`;
   }
   mainWindow = new MainWindow(appPath, appIconPath, !showLoader);
 
@@ -104,7 +112,7 @@ if (Notification.isSupported()) {
 }
 
 // macOS- or Windows Shell listeners
-if (Helper.usePhotonKitShell() || Helper.useWindowsShell()) {
+if (Helper.usePhotonKitShell() || Helper.useWindowsShell() || Helper.useLinuxShell()) {
   const resize = function(width, height) {
     let bounds = mainWindow.getBounds();
 

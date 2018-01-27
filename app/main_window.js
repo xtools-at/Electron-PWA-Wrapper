@@ -1,6 +1,7 @@
 const path = require('path');
 const electron = require('electron');
 const { BrowserWindow, session, shell } = electron;
+const Helper = require('./helper');
 const c = require('./constants');
 
 class MainWindow extends BrowserWindow {
@@ -40,9 +41,13 @@ class MainWindow extends BrowserWindow {
 
   // add custom user agent postifx (e.g. for google analytics)
   loadCustomUrl(url) {
-    var userAgentPostfix = process.platform === 'darwin'
-      ? c.settings.userAgentPostfixOSX
-      : c.settings.userAgentPostfixWindows;
+    var userAgentPostfix = c.settings.userAgentPostfixOSX;
+    if (Helper.isWindows()) {
+      userAgentPostfix = c.settings.userAgentPostfixWindows;
+    } else if (Helper.isLinux()) {
+      userAgentPostfix = c.settings.userAgentPostfixLinux;
+    }
+
     this.loadURL(url, {
       userAgent: (session.defaultSession.getUserAgent()
         + ' ' + userAgentPostfix),
