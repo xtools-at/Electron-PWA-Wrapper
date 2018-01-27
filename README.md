@@ -33,7 +33,7 @@ You can create a custom shell for your WebApp for each OS, to give it a more nat
 - In `constants.json -> settings`:
 	- Locate `usePhotonKitShell` (macOS), `useWindowsShell` or `useLinuxShell` and enable accordingly.
 	- Set `nodeIntegrationEnabled` to _true_.
-	- Set `frame` to _false_ for macOS.
+	- Set `frame` to _false_ for macOS. For other OS', it depends on how you create your shell. I wouldn't recommend disabling the frame on Windows, as this hides your native Menu completely.
 
 ## Building with [electron-builder](https://github.com/electron-userland/electron-builder)
 Electron-PWA-Wrapper comes with *electron-builder* preconfigured for macOS (dmg, mas), Linux ((AppImage)[https://appimage.org]) and Windows (Appx + Portable).
