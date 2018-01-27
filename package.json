@@ -78,6 +78,20 @@
         "de-li"
       ]
     },
-    "portable": {}
+    "portable": {},
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage"
+        }
+      ],
+      "maintainer": "xTools",
+      "vendor": "leasingrechnen.at",
+      "synopsis": "Leasingrechner App",
+      "category": "Office"
+    },
+    "appImage": {
+      "systemIntegration": "doNotAsk"
+    }
   }
 }

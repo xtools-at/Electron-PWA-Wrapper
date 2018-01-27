@@ -6,6 +6,8 @@ const Constants = {
     enableDevMenu: false, // enable for dev-builds only!
     userAgentPostfixWindows: 'WindowsApp', // custom user agent postfixes to distinguish traffic in Analytics
     userAgentPostfixOSX: 'MacOSXApp',
+    userAgentPostfixLinux: 'LinuxApp',
+    showLoader: false, // show src/loader.html window until your app is fully loaded - may increase loading time
     themeColor: '#F44336',
     windowBackgroundColor: '#FFFFFF', // set to false to disable
     titleBarStyle: 'hidden', // use 'hidden' or 'hiddenInset' for Frameless windows
@@ -15,7 +17,7 @@ const Constants = {
     useTouchBar: true, // edit in app/touch_bar.js
     usePhotonKitShell: true, // macOS: loads src/shellMacOS.html with PhotonKit instead of the appUrl.
     useWindowsShell: true,   // Win: use custom shell from src/shellWIndows.html
-                             // both require 'nodeIntegrationEnabled: true'.
+    useLinuxShell: true,    // all 3 require 'nodeIntegrationEnabled: true'.
   },
   mainWindow: {
     width: 600,

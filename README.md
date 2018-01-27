@@ -1,27 +1,22 @@
 # Electron PWA Wrapper
 
-A sample wrapper app to package your Progressive Web App into a Desktop Application using [Electron](https://github.com/electron/electron).
+A sample wrapper app to package your Progressive Web App into a Desktop Application using [Electron](https://github.com/electron/electron), [Electon-Builder](https://github.com/electron-userland/electron-builder) and [Photon](https://github.com/connors/photon).
 
-Drafted for the future Desktop-version of my [Leasing Calculator](https://www.leasingrechnen.at) Web App using [React](https://github.com/facebook/react), [Redux](https://github.com/reactjs/redux), [Materialize.css](https://github.com/Dogfalo/materialize) and a lot of Offline-First love over at [leasingrechnen.at](https://www.leasingrechnen.at).
-
-### Early development stage, please don't use for your projects yet.
+Drafted for the Desktop-version of my [Leasing Calculator](https://www.leasingrechnen.at) Web App using [React](https://github.com/facebook/react), [Redux](https://github.com/reactjs/redux), [Materialize.css](https://github.com/Dogfalo/materialize) and a lot of Offline-First love over at [leasingrechnen.at](https://www.leasingrechnen.at).
 
 ## Features
-- loading animation window for first boot
-- handle connectivity issues natively in the wrapper
-- build with electron-builder
-
-## Upcoming Features
+- build with electron-builder for macOS, Windows and Linux
+- custom shell for each OS
 - macOS TouchBar support
-- macOS custom TitleBar
+- handle connectivity issues natively in the wrapper
 
 ## Wanna give it a try?
 - clone repository, *cd* into the directory
 - run `npm install` to get the dependencies
 - run `npm run electron` to start the app
-- check out */app/constants.js* for some options (e.g. setting your own URL)
+- check out */app/constants.js* for more options (e.g. setting your own URL)
 
-## Customizing
+## Basic Customizing
 - Place your Tray- and App-Icons into `src/assets`.
 - Change `app/app_menu_template.js` to use your own Menu Items.
 - Check `app/constants.js` for localizing your Strings (this project is German by default).
@@ -29,8 +24,19 @@ Drafted for the future Desktop-version of my [Leasing Calculator](https://www.le
 - While in `app/constants.js`, check the `settings` and `mainWindow` sections too.
 - The Offline- and Loading-Screens are located in `src/offline.html` and `src/loader.html`, their corresponding images and styles in `src/res`.
 
+## Custom Shell
+You can create a custom shell for your WebApp for each OS, to give it a more native look and feel or add functionality you can't supply from your WebApp, using [Photon](https://github.com/connors/photon).
+- Go to `src` directory and find `shellMacOS.html`, `shellWindows.html` or `shellLinux.html` to see a sample implementation of the shell.
+	- *You'll need to customize the whole template to your needs!* This is plain HTML, so your configured values in the _constants.js_ won't work.
+	- There's an example of a multi-column macOS shell with built-in navigation in `src/shellMacOS-withMenu.html`.
+	- If you create new events, sent by the shell to the Main process, you'll have to listen for and handle them in `/index.js`.
+- In `constants.json -> settings`:
+	- Locate `usePhotonKitShell` (macOS), `useWindowsShell` or `useLinuxShell` and enable accordingly.
+	- Set `nodeIntegrationEnabled` to _true_.
+	- Set `frame` to _false_ for macOS. For other OS', it depends on how you create your shell. I wouldn't recommend disabling the frame on Windows, as this hides your native Menu completely.
+
 ## Building with [electron-builder](https://github.com/electron-userland/electron-builder)
-Electron-PWA-Wrapper comes with *electron-builder* preconfigured for macOS (dmg, mas) and Windows (Appx + Portable).
+Electron-PWA-Wrapper comes with *electron-builder* preconfigured for macOS (dmg, mas), Linux ([AppImage](https://appimage.org)) and Windows (Appx + Portable).
 
 ### Preperations
 - You'll need to 
@@ -68,6 +74,14 @@ Electron-PWA-Wrapper comes with *electron-builder* preconfigured for macOS (dmg,
 	- in `build/appx`: replace all the icons in the folder. Sizes and namings are important!
 - Run `npm run build` from the command line (preferably from PowerShell).
 
+### Build for Linux (any distro, using AppImage)
+#### Icons still buggy - any help appreciated!
+- Have a machine running an updated Ubuntu or Debian ready. Install Node.JS >= 6 like described [here](https://nodejs.org/en/download/package-manager).
+- Install build dependencies: `sudo apt install -y icnsutils graphicsmagick`
+- Create your `build/icon.icns` like described in _Build for macOS App Store_.
+- Update your `package.json`->`build`->`linux` and ->`appImage`.
+- Run `npm run build` and find your _.AppImage_ in the `dist` folder.
+- Tell your users to run `chmod a+x *.AppImage` or change permissions to make the file executable.
 
 ## License
 [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) - if you use it, we wanna see it!
