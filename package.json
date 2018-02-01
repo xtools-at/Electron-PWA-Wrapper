@@ -1,6 +1,6 @@
 {
   "name": "LeasingRechner",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Einfach und zuverlässig Leasingrate für Ihr Traumauto berechnen und gleich Angebot anfordern.",
   "homepage": "https://www.leasingrechnen.at",
   "main": "index.js",
