@@ -1,9 +1,22 @@
 const electron = require('electron');
 const { app } = electron;
 const c = require('./constants');
+const Helper = require('./helper');
 
 // create menu template
 const menuTemplate = function(mainWindow) {
+  // Helper function for loading URLs
+  const loadRelativeUrl = function(url) {
+    if (Helper.isUsingShell()) {
+      mainWindow.webContents.send(
+          'shell:loadUrl',
+          url
+      );
+    } else {
+      mainWindow.loadRelativeUrl(url);
+    }
+  };
+
   const template = [
     {
       label: c.menu.leasing.label,
@@ -12,21 +25,21 @@ const menuTemplate = function(mainWindow) {
           label: c.menu.leasing.car,
           accelerator: 'CmdOrCtrl+B',
           click() {
-            mainWindow.loadRelativeUrl('/');
+            loadRelativeUrl('/');
           }
         },
         {
           label: c.menu.leasing.movables,
           accelerator: 'CmdOrCtrl+N',
           click() {
-            mainWindow.loadRelativeUrl('/mobilien-rechner');
+            loadRelativeUrl('/mobilien-rechner');
           }
         },
         {
           label: c.menu.leasing.inquiry,
           accelerator: 'CmdOrCtrl+L',
           click() {
-            mainWindow.loadRelativeUrl('/angebot');
+            loadRelativeUrl('/angebot');
           }
         },
       ],
@@ -134,13 +147,13 @@ const menuTemplate = function(mainWindow) {
         {
           label: c.menu.app.about + ' ' + c.settings.appName,
           click: function() {
-            mainWindow.loadRelativeUrl('/ueber-uns');
+            loadRelativeUrl('/ueber-uns');
           }
         },
         {
           label: c.menu.help.contact,
           click: function() {
-            mainWindow.loadRelativeUrl('/kontakt');
+            loadRelativeUrl('/kontakt');
           }
         },
       ]

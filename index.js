@@ -111,8 +111,8 @@ if (Notification.isSupported()) {
   });
 }
 
-// macOS- or Windows Shell listeners
-if (Helper.usePhotonKitShell() || Helper.useWindowsShell() || Helper.useLinuxShell()) {
+// Shell listeners
+if (Helper.isUsingShell()) {
   const resize = function(width, height) {
     let bounds = mainWindow.getBounds();
 
