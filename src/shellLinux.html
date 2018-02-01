@@ -180,6 +180,11 @@
             largeViewButton.addEventListener('click', function () {
                 window.ipcRenderer.send('titlebar:large_view');
             });
+
+            // Main process listener
+            window.ipcRenderer.on('shell:loadUrl', function (ev, url) {
+              webview.loadURL(baseUrl + url);
+            });
           }
         </script>
     </body>

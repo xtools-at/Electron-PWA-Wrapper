@@ -13,6 +13,9 @@ const Helper = {
   useLinuxShell: function() {
     return c.settings.useLinuxShell && this.isLinux();
   },
+  isUsingShell: function() {
+    return this.useLinuxShell() || this.usePhotonKitShell() || this.useWindowsShell();
+  },
   isMacOS: function() {
     return process.platform === 'darwin';
   },

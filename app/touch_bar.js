@@ -21,7 +21,7 @@ const setTouchBar = function(mainWindow) {
             icon: nativeImage.createFromPath(path.join(__dirname, '../src', 'assets', 'touchbar_left.png')),
             click: () => {
                 mainWindow.webContents.send(
-                    'touchBar:navigate',
+                    'shell:navigate',
                     'back'
                 );
             },
@@ -30,7 +30,7 @@ const setTouchBar = function(mainWindow) {
             icon: nativeImage.createFromPath(path.join(__dirname, '../src', 'assets', 'touchbar_right.png')),
             click: () => {
                 mainWindow.webContents.send(
-                    'touchBar:navigate',
+                    'shell:navigate',
                     'forward'
                 );
             },
@@ -39,7 +39,7 @@ const setTouchBar = function(mainWindow) {
             icon: nativeImage.createFromPath(path.join(__dirname, '../src', 'assets', 'touchbar_send.png')),
             click: () => {
                 mainWindow.webContents.send(
-                    'touchBar:loadUrl',
+                    'shell:loadUrl',
                     '/kontakt'
                 );
             },
@@ -52,7 +52,7 @@ const setTouchBar = function(mainWindow) {
             backgroundColor: c.settings.themeColor,
             click: () => {
                 mainWindow.webContents.send(
-                    'touchBar:loadUrl',
+                    'shell:loadUrl',
                     '/'
                 );
             },
@@ -62,7 +62,7 @@ const setTouchBar = function(mainWindow) {
             backgroundColor: c.settings.themeColor,
             click: () => {
                 mainWindow.webContents.send(
-                    'touchBar:loadUrl',
+                    'shell:loadUrl',
                     '/mobilien-rechner'
                 );
             },
@@ -72,7 +72,7 @@ const setTouchBar = function(mainWindow) {
             backgroundColor: c.settings.themeColor,
             click: () => {
                 mainWindow.webContents.send(
-                    'touchBar:loadUrl',
+                    'shell:loadUrl',
                     '/angebot'
                 );
             },
