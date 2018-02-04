@@ -1,6 +1,6 @@
 {
-  "name": "LeasingRechner",
-  "version": "1.0.4",
+  "name": "Leasingrechner",
+  "version": "1.0.5",
   "description": "Einfach und zuverlässig Leasingrate für Ihr Traumauto berechnen und gleich Angebot anfordern.",
   "homepage": "https://www.leasingrechnen.at",
   "main": "index.js",
@@ -33,7 +33,7 @@
   ],
   "build": {
     "appId": "at.xtools.leasingrechner.desktop",
-    "productName": "Leasing Rechner",
+    "productName": "Leasingrechner",
     "copyright": "Copyright © 2018 leasingrechnen.at",
     "mac": {
       "category": "public.app-category.finance",
