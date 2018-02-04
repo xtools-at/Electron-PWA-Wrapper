@@ -4,6 +4,10 @@
 	<dict>
 		<key>com.apple.security.app-sandbox</key>
 		<true/>
+		<key>com.apple.security.inherit</key>
+		<true/>
+		<key>com.apple.security.network.client</key>
+		<true/>
 		<key>com.apple.security.application-groups</key>
 		<string>86W9Q5SP7G.at.xtools.leasingrechner.desktop</string>
 	</dict>
