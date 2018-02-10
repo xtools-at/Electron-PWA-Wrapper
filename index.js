@@ -16,18 +16,17 @@ let appIconPath;
 
 app.on('ready', () => {
   // set up icons
-  let appIcon = 'app-mac.png';
+  let appIcon = 'app-win.ico';
+  let trayIcon = 'tray-win.ico';
   if (Helper.isLinux()) {
     appIcon = 'app-linux512x512.png';
-  } else if (Helper.isWindows()) {
-    appIcon = 'app-win.ico';
+    trayIcon = 'tray-linux32x32.png';
   }
-  let trayIcon = 'tray-mac.png';
-  if (Helper.isLinux()) {
-    appIcon = 'tray-linux32x32.png';
-  } else if (Helper.isWindows()) {
-    appIcon = 'tray-win.ico';
+  if (Helper.isMacOS()) {
+    appIcon = 'app-mac.png';
+    trayIcon = 'tray-mac.png';
   }
+
   const trayIconPath = path.join(__dirname, 'src', 'assets', trayIcon);
   appIconPath = path.join(__dirname, 'src', 'assets', appIcon);
 
