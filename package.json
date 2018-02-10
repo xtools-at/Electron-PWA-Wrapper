@@ -70,12 +70,7 @@
       "publisher": "CN=84B32E2F-0B83-4D35-8A43-109EF795E8E1",
       "publisherDisplayName": "xTools",
       "languages": [
-        "de",
-        "de-at",
-        "de-ch",
-        "de-de",
-        "de-lu",
-        "de-li"
+        "de"
       ]
     },
     "portable": {},
