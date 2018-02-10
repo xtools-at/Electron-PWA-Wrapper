@@ -87,6 +87,14 @@
     },
     "appImage": {
       "systemIntegration": "doNotAsk"
+    },
+    "snap": {
+      "summary": "Electron Desktop App Wrapper for PWAs / leasingrechnen.at",
+      "assumes": [],
+      "buildPackages": [],
+      "stagePackages": ["default"],
+      "plugs": ["default"],
+      "after": ["default"]
     }
   }
 }
