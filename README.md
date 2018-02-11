@@ -75,13 +75,12 @@ Electron-PWA-Wrapper comes with *electron-builder* preconfigured for macOS (dmg,
 - Run `npm run build` from the command line (preferably from PowerShell).
 
 ### Build for Linux (any distro, using AppImage)
-#### Icons still buggy - any help appreciated!
 - Have a machine running an updated Ubuntu or Debian ready. Install Node.JS >= 6 like described [here](https://nodejs.org/en/download/package-manager).
 - Install build dependencies: `sudo apt install -y icnsutils graphicsmagick`
-- Create your `build/icon.icns` like described in _Build for macOS App Store_.
+- Create your `build/icon.icns` like described in _Build for macOS App Store_. Also, don't forget to place your Tray- and App-Icons into `src/assets`.
 - Update your `package.json`->`build`->`linux` and ->`appImage`.
 - Run `npm run build` and find your _.AppImage_ in the `dist` folder.
-- Tell your users to run `chmod a+x *.AppImage` or change permissions to make the file executable.
+- Tell your users to run `chmod a+x *.AppImage` or to change permissions via GUI to make the file executable.
 
 ## License
 [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) - if you use it, we wanna see it!
