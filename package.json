@@ -78,6 +78,9 @@
       "target": [
         {
           "target": "AppImage"
+        },
+        {
+          "target": "snap"
         }
       ],
       "maintainer": "xTools",
@@ -90,8 +93,8 @@
     },
     "snap": {
       "summary": "Electron Desktop App Wrapper for PWAs / leasingrechnen.at",
-      "assumes": [],
-      "buildPackages": [],
+      "assumes": [""],
+      "buildPackages": [""],
       "stagePackages": ["default"],
       "plugs": ["default"],
       "after": ["default"]

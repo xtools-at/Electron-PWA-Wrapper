@@ -36,7 +36,7 @@ You can create a custom shell for your WebApp for each OS, to give it a more nat
 	- Set `frame` to _false_ for macOS. For other OS', it depends on how you create your shell. I wouldn't recommend disabling the frame on Windows, as this hides your native Menu completely.
 
 ## Building with [electron-builder](https://github.com/electron-userland/electron-builder)
-Electron-PWA-Wrapper comes with *electron-builder* preconfigured for macOS (dmg, mas), Linux ([AppImage](https://appimage.org)) and Windows (Appx + Portable).
+Electron-PWA-Wrapper comes with *electron-builder* preconfigured for macOS (dmg, mas), Linux ([AppImage](https://appimage.org), [Snap](https://snapcraft.io/)) and Windows (Appx + Portable).
 
 ### Preperations
 - You'll need to 
@@ -74,13 +74,22 @@ Electron-PWA-Wrapper comes with *electron-builder* preconfigured for macOS (dmg,
 	- in `build/appx`: replace all the icons in the folder. Sizes and namings are important!
 - Run `npm run build` from the command line (preferably from PowerShell).
 
-### Build for Linux (any distro, using AppImage)
+### Build for Linux
+#### Build [AppImage](https://appimage.org) for any distro:
 - Have a machine running an updated Ubuntu or Debian ready. Install Node.JS >= 6 like described [here](https://nodejs.org/en/download/package-manager).
 - Install build dependencies: `sudo apt install -y icnsutils graphicsmagick`
 - Create your `build/icon.icns` like described in _Build for macOS App Store_. Also, don't forget to place your Tray- and App-Icons into `src/assets`.
 - Update your `package.json`->`build`->`linux` and ->`appImage`.
 - Run `npm run build` and find your _.AppImage_ in the `dist` folder.
 - Tell your users to run `chmod a+x *.AppImage` or to change permissions via GUI to make the file executable.
+
+#### Build [Snap](https://snapcraft.io/) for Ubuntu App Directory / Snap Store:
+- Do all of the above.
+- See [Snapcraft Docs for Electron](https://docs.snapcraft.io/build-snaps/electron) for more information.
+- Install/update [snapd support](https://docs.snapcraft.io/core/install) if necessary (Ubuntu >= 16.04 includes snapd support by default): `sudo apt-get install snapd`
+- Install Snapcraft CLI tool: `sudo snap install snapcraft --classic`
+- Run `npm run build`. Expect the build to take a while and install some peer dependencies.
+- Create an account on [dashboard.snapcraft.io](https://dashboard.snapcraft.io/dev/account/) and register and upload your app via the Snapcraft CLI as described [here](https://docs.snapcraft.io/build-snaps/electron#share-with-your-friends).
 
 ## License
 [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) - if you use it, we wanna see it!
