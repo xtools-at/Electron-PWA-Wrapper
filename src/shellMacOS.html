@@ -7,8 +7,14 @@
             #app_container, .window-content {
                 display: flex;
             }
-            #app, #app_container {
+            #app_container {
+                flex-direction: column;
+            }
+            #app_container, .webview {
                 flex: 1;
+            }
+            .hidden {
+                flex: 0;
             }
             .drag {
                 -webkit-app-region: drag;
@@ -81,8 +87,10 @@
 
             <div class="window-content">
               <div id="app_container">
+                  <!-- loader animation -->
+                  <webview id="loader" class="webview" src="loader.html" allowpopups autosize minwidth="360" minheight="360"></webview>
                   <!-- main app -->
-                  <webview id="app" src="https://www.leasingrechnen.at" useragent="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36 MacOSXApp" allowpopups autosize minwidth="360" minheight="360"></webview>
+                  <webview id="app" class="webview hidden" src="https://www.leasingrechnen.at" useragent="Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36 MacOSXApp" allowpopups autosize minwidth="360" minheight="360"></webview>
               </div>
             </div>
 
@@ -122,6 +130,15 @@
             // set up webview
             webview.addEventListener('dom-ready', function () {
                 webview.setUserAgent(userAgent);
+            });
+
+            // hide loader, show app when ready
+            webview.addEventListener('did-finish-load', function () {
+                const loader = document.querySelector('#loader');
+                if (loader) {
+                  loader.remove();
+                }
+                webview.classList.remove('hidden');
             });
 
             webview.addEventListener('did-fail-load', function () {
