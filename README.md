@@ -4,6 +4,11 @@ A sample wrapper app to package your Progressive Web App into a Desktop Applicat
 
 Drafted for the Desktop-version of my [Leasing Calculator](https://www.leasingrechnen.at) Web App using [React](https://github.com/facebook/react), [Redux](https://github.com/reactjs/redux), [Materialize.css](https://github.com/Dogfalo/materialize) and a lot of Offline-First love over at [leasingrechnen.at](https://www.leasingrechnen.at).
 
+## Looking for iOS or Android?
+Check out my other projects:
+- [Android-PWA-Wrapper](Android-PWA-Wrapper) for Android
+- [iOS-PWA-Wrapper](https://github.com/xtools-at/iOS-PWA-Wrapper) for iOS
+
 ## Features
 - build with electron-builder for macOS, Windows and Linux
 - custom shell for each OS
@@ -84,3 +89,4 @@ Electron-PWA-Wrapper comes with *electron-builder* preconfigured for macOS (dmg,
 
 ## License
 [GNU General Public License v3.0](https://www.gnu.org/licenses/gpl-3.0.en.html) - if you use it, we wanna see it!
+Other licensing options are available on inquiry.
