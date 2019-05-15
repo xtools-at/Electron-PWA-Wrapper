@@ -6,7 +6,7 @@ Drafted for the Desktop-version of my [Leasing Calculator](https://www.leasingre
 
 ## Looking for iOS or Android?
 Check out my other projects:
-- [Android-PWA-Wrapper](Android-PWA-Wrapper) for Android
+- [Android-PWA-Wrapper](https://github.com/xtools-at/Android-PWA-Wrapper) for Android
 - [iOS-PWA-Wrapper](https://github.com/xtools-at/iOS-PWA-Wrapper) for iOS
 
 ## Features
@@ -45,13 +45,13 @@ Electron-PWA-Wrapper comes with *electron-builder* preconfigured for macOS (dmg,
 
 ### Preperations
 - You'll need to 
-	- look up your `package.json` and put in your App's values in the *build* section
+	- look up your `package.json` and put your App's values in the *build* section
 	- and put all the required graphics into the `build` directory.
-	- See the below, and the [electron-builder Docs](https://www.electron.build) for further details!
+	- See below, and the [electron-builder Docs](https://www.electron.build) for further details!
 - run `npm run build` or `./node_modules/.bin/electron-builder build` to start the build. Your app files will be located in the `dist` folder.
 
 ### Build for macOS App Store
-- Have a machine running the latest macOS ready, and latest _XCode_ installed.
+- Have a machine running latest macOS ready, and latest _XCode_ installed.
 - Get a paid Apple Developer membership (~€99,- per year) and create Certificates, Identifiers and Provisioning Profiles for macOS:
 	- Certificates: Production -> _Mac App Distribution_ and _Mac Installer Distribution_.
 	- Identifiers: App IDs -> create one with your package/bundle name (e.g. 'com.example.myawesomeapp').
@@ -65,7 +65,7 @@ Electron-PWA-Wrapper comes with *electron-builder* preconfigured for macOS (dmg,
 		- `iconutil -c icns icon.iconset`
 - Edit the `build/Info.plist` and `build/entitlements.mas.plist` and replace _YourTeamId_ and _YourPackageId_.
 	- You can find your Team ID on the Apple Developer Account in _Membership_.
-	- Your package ID is the bundle identifier you've created in step 1.
+	- Your package ID is the bundle identifier you've created in the step above (e.g. 'com.example.myawesomeapp').
 - Run `npm run build` from the terminal.
 	- If it fails, you might have to give the process proper permission by running `sudo ./node_modules/.bin/electron-builder build` instead.
 
@@ -80,7 +80,7 @@ Electron-PWA-Wrapper comes with *electron-builder* preconfigured for macOS (dmg,
 - Run `npm run build` from the command line (preferably from PowerShell).
 
 ### Build for Linux (any distro, using AppImage)
-- Have a machine running an updated Ubuntu or Debian ready. Install Node.JS >= 6 like described [here](https://nodejs.org/en/download/package-manager).
+- Have a machine running up-to-date Ubuntu or Debian ready. Install Node.JS >= 6 as described [here](https://nodejs.org/en/download/package-manager) (or as you prefer).
 - Install build dependencies: `sudo apt install -y icnsutils graphicsmagick`
 - Create your `build/icon.icns` like described in _Build for macOS App Store_. Also, don't forget to place your Tray- and App-Icons into `src/assets`.
 - Update your `package.json`->`build`->`linux` and ->`appImage`.
